@@ -27,7 +27,7 @@ class Baskets extends Model
         if($result)
         {            
             $result->increment('num');
-            $result->uapdated_at=now();
+            $result->updated_at=now();
             $result->save();
         }
         else
@@ -41,6 +41,7 @@ class Baskets extends Model
     public static function getcontent($user_id)
     {
         $basket=Baskets::with('Product')->where('user_id',$user_id)->get();
+        
         return $basket;
     }
 
@@ -52,7 +53,6 @@ class Baskets extends Model
         $addproduct->user_id=$user_id;
         $addproduct->num=1;
         $addproduct->created_at=now();
-        // $addproduct->uapdated_at=now();
         $addproduct->save();
     }
 
@@ -70,10 +70,20 @@ class Baskets extends Model
             $result->delete();            
     }
     //delete a row from basket table
-    public static function adestroy($product_id,$user_id)
+    public static function DeleteFromBasket($product_id,$user_id)
     {
         $result=Baskets::where('user_id','=',$user_id)->where('product_id','=',$product_id)->get()->first();
         $result->delete();  
     }
     
+    public static function RateToProduct($rate_id,$user_id)
+    {
+        $RateToProduct=new Rates;
+        $RateToProduct->rateable_id=$rate_id;
+        $RateToProduct->user_id=$user_id;
+        $RateToProduct->rate=1;
+        $RateToProduct->created_at=now();
+        $RateToProduct->updated_at=now();
+        $RateToProduct->save();
+    } 
 }

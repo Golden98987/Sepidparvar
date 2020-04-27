@@ -27,21 +27,31 @@ class SiteController extends Controller
         {
             array_push($BestSoldProduct,Product::where('id',$product_id->product_id)->first()); 
         }
-        return view('home',compact('BestSoldProduct'));
+        // dd($BestSoldProduct);die;
+        $MostPopularProduct_id = Query::MostPopularAllProduct();
+        $MostPopularProduct=array();
+            
+        foreach($MostPopularProduct_id as $product_id)
+        {
+            array_push($MostPopularProduct,Product::where('id',$product_id->rateable_id)->first()); 
+        }
+        // $Temp1['BestSoldProduct']=$BestSoldProduct;
+        return view('home',compact('BestSoldProduct','MostPopularProduct'));
     }
 
 
     public function ShowCategory($name , $id)
-    {
-    
+    {    
         $product_id=Product::where('category_id', $id)->get();
         return view ('product.category',compact('product_id'));
     }
+
+    //---------------------------------------------------
     public function ShowSubcategory($category ,$name ,$id)
     {
     
-        $product_id=Product::where('id', $id)->get();
-            return view ('Product.subcategory',compact('product_id'));
+        $product=Product::where('id', $id)->get();
+            return view ('Product.subcategory',compact('product'));
     }
 
     public function aboutus()

@@ -28,13 +28,12 @@
                         <tbody>
                         @foreach($Temp['basket'] as $item)
                         <tr>
-                            
-                            <td class="product-thumbnail"><a href="#"><img src="assets/images/product_img1.jpg" alt="product1"></a></td>
+                        <td class="product-thumbnail"><a href="#"><img src="/<?=$item->Product()->first()->photoes()->first()->path?>" alt="product1"></a></td>
                             <td class="product-name" data-title="Product"><a href="#">{{$item->Product()->get()->first()->name}}</a></td>
                             <td class="product-price" data-title="Price">{{$item->Product()->get()->first()->price}} تومان</td>
                             <td class="product-quantity" data-title="Quantity"><div class="quantity">
                                 <input type="button" value="-" class="minus">
-                                <input type="text" name="quantity" value="2" title="Qty" class="qty" size="4">
+                                <input type="text" name="quantity" value="<?=$item->num;?>" title="Qty" class="qty" size="4">
                                 <input type="button" value="+" class="plus">
                             </div></td>
                             <?php $price=$item->Product()->get()->first()->price;
@@ -43,7 +42,7 @@
                             ?>
                             
                             <td class="product-subtotal" data-title="Total"> </td>
-                            <td class="product-remove" data-title="Remove"><a href="#"><i class="ti-close"></i></a></td>
+                            <td class="product-remove" data-title="Remove"><a class="delete" data-id="{{$item->Product()->first()->id}}"><i class="ti-close"></i></a></td>
                         </tr>
                         @endforeach
                         </tbody>
@@ -375,7 +374,40 @@
     </div>
 </section>
 <!-- END SECTION SHOP DETAIL -->
+<script type="text/javascript">
 
+    $(document).ready(function(){
+        
+        $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+            $(".delete").click(function(){
+                var id = $(this).attr('data-id');
+                // alert(id);
+
+                $.ajax({
+                    url: '/cart/delete-from-basket',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {id:id},
+                    success:function(data)
+                    {
+                        // alert('محصول با موفقیت از سبد خرید حذف شد');
+                        console.log(data);
+                        // jQuery.each(data.results, function(i, val) {
+                        // // here you can do your magic
+                        // $("#yourdivid").append(document.createTextNode(val.term));
+                        // $("#yourdivid").append(document.createTextNode(val.count));
+                    }
+                    // error: function (XMLHttpRequest,textStatus, errorthrown){
+                    //     console.log('AJAX error:' + errorthrown);
+                    // }
+            });
+        });
+    });
+</script>
 @include('layouts.organiq.partials.newslatter')
 
 @endsection

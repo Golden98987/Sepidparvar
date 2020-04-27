@@ -29,13 +29,12 @@ class Query extends Model
             ->get();
     }
     
-    public static function MostPopularAllProduct($id)
+    public static function MostPopularAllProduct()
     {
-        return DB::table('factor')->where('factorstate_id', '=', 2)
-            ->leftJoin('products','product.category_id','=',$id)
-            ->leftJoin('factor_product','factor.id','=','factor_product.factor_id')
-            ->selectRaw('factor_product.product_id, COALESCE(sum(factor_product.num),0) total')
-            ->groupBy('factor_product.product_id')
+        return DB::table('rates')
+            // ->leftJoin('factor_product','factor.id','=','factor_product.factor_id')
+            ->selectRaw('rates.rateable_id, COALESCE(sum(rates.rate),0) total')
+            ->groupBy('rates.rateable_id')
             ->orderBy('total','desc')
             ->take(6)
             ->get();

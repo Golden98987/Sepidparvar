@@ -49,6 +49,10 @@ class Product extends Model
     {    
         return $this->morphMany('App\Model\Photoes','imageable');
     }
+    public function Rates()
+    {    
+        return $this->morphMany('App\Model\Rates','rateable');
+    }
 
     public function tags()
     {

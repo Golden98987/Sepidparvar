@@ -4,6 +4,7 @@
     <meta content="Anil z" name="author">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="فروشگاه ارگانیک">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- SITE TITLE -->
     <title>ارگانیک</title>
     <!-- Favicon Icon -->
@@ -13,9 +14,9 @@
     <!-- Latest Bootstrap min CSS -->
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <!-- Google Font -->
-    <link href="{{asset('https://fonts.googleapis.com/css?family=Lobster+Two:400,700')}}"
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two:400,700'
           rel="stylesheet">
-    <link href="{{asset('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900')}}"
+    <link href='https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900'
           rel="stylesheet">
     <!-- Icon Font CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/ionicons.min.css')}}">
@@ -35,14 +36,18 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
     <link rel="stylesheet" id="layoutstyle" href="{{asset('assets/color/theme-default.css')}}">
+
+    <!-- include jquery -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         var sc_project = 11981757;
         var sc_invisible = 1;
         var sc_security = "35d2687e";
         var sc_https = 1;
     </script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Latest jQuery -->
-    <script src="{{asset('assets/js/jquery-1.12.4.min.js')}}"></script>
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
-    <!-- <script src="http://www.statcounter.com/counter/counter.js" async></script> -->
+    {{-- <script src="{{asset('../../../www.statcounter.com/counter/counter.js')}}" async></script> --}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest jQuery -->
+<script src="{{asset('assets/js/jquery-1.12.4.min.js')}}"></script>
+

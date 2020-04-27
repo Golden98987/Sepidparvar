@@ -3,8 +3,8 @@
   <div class="container">
       <div class="row">
 
-        
-            @foreach ($BestSoldProduct as $p) 
+          @if(is_array($BestSoldProduct)||is_object($BestSoldProduct))
+            @foreach($BestSoldProduct as $p) 
 
             <div class="col-md-4 animation" data-animation="bounceInUp" data-animation-delay="0.2s">
               <div class="banner_box box_shadow4 radius_all_10">
@@ -23,6 +23,7 @@
               </div>
             </div>
             @endforeach 
+          @endif
 
           
          

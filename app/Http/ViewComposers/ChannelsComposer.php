@@ -7,7 +7,7 @@ use App\Model\Category;
 use App\Model\Product;
 use App\Model\Gender;
 use App\Model\Baskets;
-
+use App\User;
 
 
 class ChannelsComposer
@@ -17,7 +17,14 @@ class ChannelsComposer
         $category=Category::all();
         $Product=Product::with('category')->get();
         $genders=Gender::all();
-        $basket=Baskets::getcontent(1);
+        if(auth()->user())
+        {
+            $curentuserid=auth()->user()->id;
+            $basket=Baskets::getcontent($curentuserid);
+            $Temp['basket']= $basket;
+        }
+        else
+        $Temp['basket']= null;
         // $price=0;
         // foreach($basket as $item)
         // {
@@ -28,7 +35,7 @@ class ChannelsComposer
         $Temp['category']=$category;
         $Temp['Product']= $Product;
         $Temp['genders']= $genders;
-        $Temp['basket']= $basket;
+        
         // $Temp['price']=$price;
         
         $view->with('Temp',$Temp);

@@ -21,11 +21,11 @@
                             aria-controls="tab-1" aria-selected="true"><span class="pr_icon1"></span> {{$category->persian_name}}</a>
                         </li>  
                       @endforeach
-                      {{-- <li class="nav-item">
+                      <li class="nav-item">
                           <a class="nav-link active" id="tab1" data-toggle="tab" href="#tab-1" role="tab"
                              aria-controls="tab-1" aria-selected="true"><span class="pr_icon1"></span>کلیه محصولات</a>
                       </li>
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                           <a class="nav-link" id="tab2" data-toggle="tab" href="#tab-2" role="tab"
                              aria-controls="tab-2" aria-selected="false"><span class="pr_icon2"></span>سبزیجات</a>
                       </li>
@@ -40,22 +40,22 @@
                       <li class="nav-item">
                           <a class="nav-link" id="tab5" data-toggle="tab" href="#tab-5" role="tab"
                              aria-controls="tab-5" aria-selected="false"><span class="pr_icon5"></span>چای</a>
-                      </li> --}}
+                      </li>  -->
                   </ul>
                   <div class="small_divider clearfix"></div>
                   <div class="tab-content">
-                      <div class="tab-pane fade show active" id="{{$category->id}}" role="tabpanel" aria-labelledby="{{$category->id}}">
-                          <div class="row animation" data-animation="fadeInUp" data-animation-delay="0.05s">
-                            
+                      <!-- <div class="tab-pane fade show active" id="{{$category->id}}" role="tabpanel" aria-labelledby="{{$category->id}}">
+                          <div class="row animation" data-animation="fadeInUp" data-animation-delay="0.05s"> -->
+                          @foreach ($BestSoldProduct as $product)
                               <div class="col-xl-3 col-lg-4 col-sm-6">
-                                @foreach ($BestSoldProduct as $product)
+                                
+                                
                                 <!-- @if ($category->id == $product->category_id) -->
                                   <div class="product">
                                     
                                       <span class="pr_flash bg_green">فروش</span>
                                       <div class="product_img">
-                                          <a href="#"><img src="{{asset('assets/images/product_img1.jpg')}}"
-                                                           alt="product_img1"></a>
+                                          <a href="#"><img src="{{asset('/').$product->Photoes()->first()->path}}" alt="product_img1"></a>    
                                           <div class="product_action_box">
                                               <ul class="list_none pr_action_btn">
                                                   <li><a href="#"><i class="ti-heart"></i></a></li>
@@ -75,10 +75,11 @@
                                                               
                                   </div>
                                   <!-- @endif -->
-                                  @endforeach    
+                                     
+                                
                               </div>
-                              
-                              <div class="col-xl-3 col-lg-4 col-sm-6">
+                              @endforeach 
+                              <!-- <div class="col-xl-3 col-lg-4 col-sm-6">
                                   <div class="product">
                                       <span class="pr_flash bg_orange">-10٪</span>
                                       <div class="product_img">
@@ -242,10 +243,10 @@
                                           <span class="price">32.00 تومان</span>
                                       </div>
                                   </div>
-                              </div>
+                              </div> -->
                           </div>
                       </div>
-                      <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
+                      <!-- <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
                           <div class="row animation" data-animation="fadeInUp" data-animation-delay="0.05s">
                               <div class="col-xl-3 col-lg-4 col-sm-6">
                                   <div class="product">
@@ -851,7 +852,7 @@
                                   </div>
                               </div>
                           </div>
-                      </div>
+                      </div> -->
                   </div>
               </div>
           </div>

@@ -37,7 +37,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                            document.getElementById('logout-form').submit();">
                                             {{ __('خروج از حساب کاربری') }}
                                         </a>
             
@@ -138,23 +138,20 @@
               </div>
           </li>
           <li class="dropdown cart_wrap">
-          <a class="nav-link" href="{{ Route('cart') }}" data-toggle="dropdown"><i class="ion-bag"></i><span class="cart_count">2</span></a>
+          <a class="nav-link" id="basketshow" href="{{ Route('cart') }}" data-toggle="dropdown"><i class="ion-bag"></i><span class="cart_count">2</span></a>
               <div class="cart_box dropdown-menu dropdown-menu-right">
-                  <ul class="cart_list">
+                  <ul id="cart_list" class="cart_list" >
                         <!-- @$price=0 -->
+                      @if($Temp['basket'])  
                       @foreach($Temp['basket'] as $item)
                          <li>
                             <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                            <a href="#"><img src="{{asset('assets/images/cart_thamb1.jpg')}}" alt="cart_thumb1">{{$item->Product()->get()->first()->name}} </a>
-                            <p><span class="float-right">{{$item->num}} x </span> <span class="float-right">{{$item->Product()->get()->first()->price}} تومان</span></p>
+                            <a href="#"><img class="item-img" src="{{asset('/').$item->Product()->first()->photoes()->first()->path}}" alt="cart_thumb1">{{$item->Product()->get()->first()->name}} </a>
+                            <p><span class="float-right" class="item-num">{{$item->num}} x </span> <span class="float-right">{{$item->Product()->get()->first()->price}} </span></p>
                         </li>
                         <!-- @$price+=($item->num)* $item->Product()->get()->first()->price -->
-                      @endforeach
-                      <!-- <li>
-                          <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                          <a href="#"><img src="{{asset('assets/images/cart_thamb2.jpg')}}" alt="cart_thumb2">نام محصول ارگانیک</a>
-                          <p><span class="float-right">1 x </span> <span class="float-right">1500 تومان</span></p>
-                      </li> -->
+                        @endforeach
+                      @endif
                   </ul>
                   <div class="cart_footer">
                       <p class="cart_total">جمع کل : <span class="cart_amount"> <span class="price_symbole"> تومان</span></span>
@@ -163,6 +160,7 @@
                           <a href="{{ Route('checkout') }}" class="btn btn-dark btn-radius checkout">پرداخت</a>
                       </p>
                   </div>
+                
               </div>
           </li>
       </ul>

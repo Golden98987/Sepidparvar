@@ -10,49 +10,40 @@
                     <div class="col-md-6">
                         <div class="product-image">
                             <span class="pr_flash bg_green">فروش</span>
-                            <img id="product_img" src="{{asset('assets/images/product1.jpg')}}" alt="تولید - محصول" data-zoom-image="{{asset('assets/images/product1.jpg')}}">
+                           
+                                    
+                            <img id="product_img" src="/<?=$product[0]->photoes()->first()->path; ?>" alt="تولید - محصول" data-zoom-image="{{asset('assets/images/product1.jpg')}}">
+                            
                             <div id="pr_item_gallery" class="product_gallery_item owl-thumbs-slider owl-carousel owl-theme">
+                                
+                                @foreach($product[0]->photoes()->get() as $photo)
                                 <div class="item">
-                                    <a href="#" class="active" data-image="{{asset('assets/images/product1.jpg')}}" data-zoom-image="{{asset('assets/images/product1.jpg')}}">
-                                        <img src="{{asset('assets/images/product_img1.jpg')}}" alt="تولید - محصول">
+                                    <a href="#" class="active" data-image="/<?=$photo->path; ?>" data-zoom-image="{{asset('assets/images/product1.jpg')}}">
+                                        
+                                        <img src="/<?=$photo->path; ?>" alt="تولید - محصول">
+                                       
                                     </a>
                                 </div>
-                                <div class="item">
-                                    <a href="#" data-image="{{asset('assets/images/product1-1.jpg')}}" data-zoom-image="{{asset('assets/images/product1-1.jpg')}}">
-                                        <img src="{{asset('assets/images/product_img1-1.jpg')}}" alt="تولید - محصول">
-                                    </a>
-                                </div>
-                                <div class="item">
-                                    <a href="#" data-image="{{asset('assets/images/product1-2.jpg')}}" data-zoom-image="{{asset('assets/images/product1-2.jpg')}}">
-                                        <img src="{{asset('assets/images/product_img1-2.jpg')}}" alt="تولید - محصول">
-                                    </a>
-                                </div>
-                                <div class="item">
-                                    <a href="#" data-image="{{asset('assets/images/product1-3.jpg')}}" data-zoom-image="{{asset('assets/images/product1-3.jpg')}}">
-                                        <img src="{{asset('assets/images/product_img1-3.jpg')}}" alt="تولید - محصول">
-                                    </a>
-                                </div>
+                                @endforeach
+                                                                
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="pr_detail">
                             <div class="product-description">
-
-                                @foreach ($kala_id as $kala)
-                                    {{-- @dd($kala); --}}
+                           
                                     <div class="product-title">
-                                        <h4><a href="#">{{ $kala->name }}</a></h4>
+                                        <h4><a href="#">{{ $product[0]->name }}</a></h4>
                                     </div>
                                     <div class="product_price float-left">
-                                    <span class="price">{{ $kala->price }}</span>
+                                    <span class="price">{{ $product[0]->price }}</span>
                                     </div>
                                     <div class="rating mt-2 float-right"><div class="product_rate" style="width:80%"></div></div>
                                     <div class="clearfix"></div>
                                     <hr>
-                                    <p>{{ $kala->description }}</p>
-                                @endforeach
-                                
+                                    <p>{{ $product[0]->description }}</p>
+
                             </div>
                             <hr>
                             <div class="cart_extra">
@@ -64,8 +55,8 @@
                                     </div>
                                 </div>
                                 <div class="cart_btn">
-                                    <button class="btn btn-default btn-radius btn-sm btn-addtocart" type="button">افزودن به سبد خرید</button>
-                                    <a class="add_wishlist" href="#"><i class="ti-heart"></i></a>
+                                    <button data-id="{{ $product[0]->id }}" class="btn btn-default btn-radius btn-sm btn-addtocart addcart" type="button">افزودن به سبد خرید</button>
+                                    <a class="add_wishlist ratetoproduct" data-id="{{ $product[0]->id }}"  href="#"><i class="ti-heart"></i></a>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -313,9 +304,9 @@
                     <div class="widget">
                         <h5 class="widget_title">دسته بندی ها</h5>
 
-                        @foreach ($Temp['categori'] as $categori)
+                        @foreach ($Temp['category'] as $category)
                             <ul class="list_none widget_categories border_bottom_dash">
-                                <li><a href="{{ asset('/').'categori/'.$categori->name.'/'.$categori->id }}"><span class="categories_name">{{ $categori->persian_name }}</span><span class="categories_num">(9)</span></a></li>
+                                <li><a href="{{ asset('/').'category/'.$category->name.'/'.$category->id }}"><span class="categories_name">{{ $category->persian_name }}</span><span class="categories_num">(9)</span></a></li>
                             </ul>
                         @endforeach
                         
@@ -370,5 +361,64 @@
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        
+        $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+            $(".addcart").click(function(){
+                var id = $(this).attr('data-id');
+                // alert(id);
+
+                $.ajax({
+                    url: '/add-to-cart',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {id:id},
+                    success:function(data)
+                    {
+                        alert('محصول با موفقیت به سبد خرید اضافه شد');
+                    }
+                    // error: function (XMLHttpRequest,textStatus, errorthrown){
+                    //     console.log('AJAX error:' + errorthrown);
+                    // }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        
+        $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+            $(".ratetoproduct").click(function(){
+                var id = $(this).attr('data-id');
+                // alert(id);
+
+                $.ajax({
+                    url: '/category/rate-to-product',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {id:id},
+                    success:function(data)
+                    {
+                        alert('امتیاز شما با موفقیت ثبت شد.');
+                    }
+                    // error: function (XMLHttpRequest,textStatus, errorthrown){
+                    //     console.log('AJAX error:' + errorthrown);
+                    // }
+            });
+        });
+    });
+    </script>
 @include('layouts.organiq.partials.newslatter')
 @endsection

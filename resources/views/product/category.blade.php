@@ -38,7 +38,7 @@
                             <div class="product">
                                 <span class="pr_flash bg_green">فروش</span>
                                 <div class="product_img">
-                                    <a href="#"><img src="{{asset('assets/images/product_img1.jpg')}}" alt="product_img1"></a>
+                                    <a href="#"><img src="/<?php  echo $product->photoes()->first()->path?>" alt="product_img1"></a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
                                             <li><a href="#"><i class="ti-heart"></i></a></li>
@@ -57,8 +57,8 @@
                                     </div>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a data-id="{{$product->id}}" class="addcart" value="{{$product->id}}" ><i class="ti-shopping-cart"></i> افزودن به سبد خرید</a></li>
-                                            <li><a href="#"><i class="ti-heart"></i></a></li>
+                                            <li class="add-to-cart"><a data-id="{{$product->id}}"  class="addcart" value="{{$product->id}}" ><i class="ti-shopping-cart"></i> افزودن به سبد خرید</a></li>
+                                            <li><a data-id="{{$product->id}}" class="ratetoproduct" ><i class="ti-heart"></i></a></li>
                                             <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
                                         </ul>
                                     </div>
@@ -162,11 +162,11 @@
 
     $(document).ready(function(){
         
-        $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-            });
+        // $.ajaxSetup({
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             }
+        //     });
             $(".addcart").click(function(){
                 var id = $(this).attr('data-id');
                 // alert(id);
@@ -178,7 +178,61 @@
                     data: {id:id},
                     success:function(data)
                     {
-                        alert('محصول با موفقیت به سبد خرید اضافه شد');
+                        // console.log(data['path'][0]['product'].name);
+                        
+                        if(data.url)
+                        {
+                            window.location=data.url;
+                        }
+                        else
+                        {
+                            var basketStr = "";
+                            for (i = 0; i < data['basket'].length; i++)
+                            {
+                                basketStr +="<li>"+"<a href="+"'#'"+" class="+'"item_remove"'+"><i class="+'"ion-close"'+"></i></a>";
+                                basketStr +="<a href="+'"#"'+"><img src="+'"/'+ data['path'][i] +'"'+" class="+'"item-img"' +" alt="+'"cart_thumb1"'+">"+data['basket'][i]['product'].name+"</a>";
+                                basketStr +="<p><span"+" class="+'"float-right"'+" class="+'"item-num"'+">"+data['basket'][i].num+"x </span>";
+                                basketStr +="<span class="+'"float-right"'+">"+data['basket'][i]['product'].price +"</span></p> </li>";
+
+                            }
+                            console.log(basketStr);
+                            $("#cart_list").html(basketStr);
+                            alert('محصول با موفقیت به سبد خرید اضافه شد');
+                        }
+                        
+                    },
+
+                    
+                    
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        
+        $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+            $(".ratetoproduct").click(function(){
+                var id = $(this).attr('data-id');
+                // alert(id);
+
+                $.ajax({
+                    url: '/category/rate-to-product',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        id:id,
+                        _token: "{{ csrf_token() }}",
+                        },
+                    success:function(data)
+                    {
+                        alert('امتیاز شما با موفقیت ثبت شد.');
                     }
                     // error: function (XMLHttpRequest,textStatus, errorthrown){
                     //     console.log('AJAX error:' + errorthrown);
@@ -187,5 +241,4 @@
         });
     });
 </script>
-
 @endsection

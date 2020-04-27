@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Category;
 use App\Model\Product;
+use App\Model\Photoes;
 use App\Model\Baskets;
 use App\User;
 
@@ -24,7 +25,34 @@ class BasketController extends Controller
     {
         $CurrentUserid= $request->user()->id; 
         Baskets::AddToBasket($request->id,$CurrentUserid);
+        $basket= Baskets::getcontent($CurrentUserid);
+        $path=array();
+        $i=0;
+        // dd($basket[0]->product->id);die;
+        foreach($basket as $item)
+        {
+            $path[$i]=Photoes::Where('imageable_id',$item->Product->id)->first()->path;
+            $i++;
+        }
+        return response()->json(array('basket'=>$basket,'path'=>$path));
+
+    }
+    public function RateToProduct(Request $request)
+    {
+        $CurrentUserid= $request->user()->id; 
+        Baskets::RateToProduct($request->id,$CurrentUserid);
         return response()->json([$CurrentUserid]);
 
     }
+    public function RemoveFromBasket(Request $request)
+    {
+        // $CurrentUserid= $request->user()->id; 
+        Baskets::DeleteFromBasket($request->id,3);
+        $Temp['basket']= Baskets::getcontent(3);
+        return response()->json($Temp['basket']);
+
+    }
+
+
+
 }
