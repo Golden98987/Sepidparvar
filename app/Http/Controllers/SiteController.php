@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Category;
 use App\Model\Product;
+use App\Model\Photoes;
 use App\Model\Factor_Product;
 use App\Model\Factor;
 use App\Model\Taggables;
@@ -18,8 +19,6 @@ class SiteController extends Controller
 {
     public function ShowHomepage()
     {
-
-        
         $BestSoldProduct_id = Query::BestSoldeAllProducts();
         $BestSoldProduct=array();
             
@@ -27,7 +26,7 @@ class SiteController extends Controller
         {
             array_push($BestSoldProduct,Product::where('id',$product_id->product_id)->first()); 
         }
-        // dd($BestSoldProduct);die;
+      
         $MostPopularProduct_id = Query::MostPopularAllProduct();
         $MostPopularProduct=array();
             
@@ -35,8 +34,45 @@ class SiteController extends Controller
         {
             array_push($MostPopularProduct,Product::where('id',$product_id->rateable_id)->first()); 
         }
-        // $Temp1['BestSoldProduct']=$BestSoldProduct;
+
         return view('home',compact('BestSoldProduct','MostPopularProduct'));
+    }
+
+    //Best Sold Products Based On Category
+    public function SortByCategory(Request $request)
+    {    
+        $result=array();
+     
+        $BestSoldeselectedCategory_id=Query::BestSoldeAllProducts();
+
+            if($request->id!=null)
+            { 
+                foreach($BestSoldeselectedCategory_id as $product_id)
+                {
+                    $product=Product::where('id',$product_id->product_id)->where('category_id','=',$request->id)->first();
+
+                    if($product)
+                        array_push($result,$product); 
+                }
+            }
+            else
+            {
+                foreach($BestSoldeselectedCategory_id as $product_id)
+                {
+                    $product=Product::where('id',$product_id->product_id)->first();
+
+                    if($product)
+                        array_push($result,$product); 
+                }
+            }
+            $path=array();
+            $i=0;
+            foreach($result as $item)
+            {
+                $path[$i]=Photoes::Where('imageable_id',$item->id)->first()->path;
+                $i++;
+            }
+        return response()->json(array('result'=>$result,'path'=>$path));
     }
 
 

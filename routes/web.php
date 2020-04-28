@@ -27,6 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('role');
 Route::get('/', 'SiteController@ShowHomepage');
 Route::get('/category/{name}/{id}', 'SiteController@ShowCategory');
 Route::get('/category/{categori}/{name}/{id}', 'SiteController@ShowSubcategory');
+Route::post('sort-by-category', 'SiteController@SortByCategory');
 
 //====================================== درباره ما و ارتباط با ما  =====================================
 Route::get('/aboutus', 'SiteController@aboutus')->name('aboutus');
@@ -40,7 +41,7 @@ Route::get('/cart', 'BasketController@cart')->name('cart')->middleware('UserLogi
 Route::get('/checkout', 'BasketController@checkout')->name('checkout')->middleware('UserLoginCheck');
 Route::post('add-to-cart','BasketController@AddToCart')->middleware('UserLoginCheck'); 
 Route::post('category/rate-to-product','BasketController@RateToProduct')->middleware('UserLoginCheck'); 
-Route::post('cart/delete-from-basket','BasketController@RemoveFromBasket')->middleware('UserLoginCheck');
+Route::post('cart/delete-from-basket','BasketController@RemoveFromBasket')->middleware('UserLoginCheck'); 
 
 
 

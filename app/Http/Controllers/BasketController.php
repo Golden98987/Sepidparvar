@@ -28,7 +28,7 @@ class BasketController extends Controller
         $basket= Baskets::getcontent($CurrentUserid);
         $path=array();
         $i=0;
-        // dd($basket[0]->product->id);die;
+
         foreach($basket as $item)
         {
             $path[$i]=Photoes::Where('imageable_id',$item->Product->id)->first()->path;
