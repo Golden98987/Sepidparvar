@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Model;
-
+use App\Model\Comments;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -19,9 +19,9 @@ class Product extends Model
         return $this->belongsTo('App\Model\Category','category_id','id');
     }
 
-    public function Comment()
+    public function Comments()
     {
-        return $this->hasMany('App\Model\Comment');
+        return $this->morphMany('App\Model\Comments','commentable');
     }
 
     public function Baskets()
@@ -36,8 +36,7 @@ class Product extends Model
 
     public function Factor_Product()
     {
-        return $this->hasMany('App\Model\Factor_Product
-        ');
+        return $this->hasMany('App\Model\Factor_Product');
     }
     
     public function Backed_Product()
@@ -63,4 +62,7 @@ class Product extends Model
     {
         return Str::limit($this->description, 15, '...');
     }
+    //save score for a product in Comment table
+    
+    
 }

@@ -40,9 +40,11 @@ Route::get('/weblog', 'SiteController@weblog')->name('weblog');
 Route::get('/cart', 'BasketController@cart')->name('cart')->middleware('UserLoginCheck');
 Route::get('/checkout', 'BasketController@checkout')->name('checkout')->middleware('UserLoginCheck');
 Route::post('add-to-cart','BasketController@AddToCart')->middleware('UserLoginCheck'); 
-Route::post('category/rate-to-product','BasketController@RateToProduct')->middleware('UserLoginCheck'); 
 Route::post('cart/delete-from-basket','BasketController@RemoveFromBasket')->middleware('UserLoginCheck'); 
 
-
+//====================================== محصول =======================================
+Route::post('category/rate-to-product','BasketController@RateToProduct')->middleware('UserLoginCheck'); 
+Route::post('product/star_rating','CommentController@StoreScore')->middleware('UserLoginCheck'); 
+Route::post('product/post_comment','CommentController@StoreComment')->middleware('UserLoginCheck'); 
 
 

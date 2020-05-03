@@ -38,4 +38,7 @@
 <script src="{{asset('assets/js/scripts.js')}}"></script>
 <!-- JS Part End-->
 
+<script src="{{asset('js/layout/event.js')}}"></script>
+
+
 

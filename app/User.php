@@ -62,6 +62,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Comments');
     }
+    public function photoes()
+    {    
+        return $this->morphMany('App\Model\Photoes','imageable');
+    }
 
     public function Address()
     {

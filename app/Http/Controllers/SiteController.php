@@ -10,6 +10,7 @@ use App\Model\Factor_Product;
 use App\Model\Factor;
 use App\Model\Taggables;
 use App\Query;
+use App\User;
 use App\Model\Roles;
 use Illuminate\Support\Facades\DB;
 
@@ -24,9 +25,9 @@ class SiteController extends Controller
             
         foreach($BestSoldProduct_id as $product_id)
         {
-            array_push($BestSoldProduct,Product::where('id',$product_id->product_id)->first()); 
+            array_push($BestSoldProduct,Product::with('category')->where('id',$product_id->product_id)->first()); 
         }
-      
+        // dd($BestSoldProduct);
         $MostPopularProduct_id = Query::MostPopularAllProduct();
         $MostPopularProduct=array();
             
@@ -37,44 +38,51 @@ class SiteController extends Controller
 
         return view('home',compact('BestSoldProduct','MostPopularProduct'));
     }
+//=====================================================================================
 
     //Best Sold Products Based On Category
     public function SortByCategory(Request $request)
     {    
-        $result=array();
+        $BestSoldeselectedCategory_id=array();
+        $products=array();
      
-        $BestSoldeselectedCategory_id=Query::BestSoldeAllProducts();
-
             if($request->id!=null)
             { 
+                $BestSoldeselectedCategory_id=Query::BestSoldeselectedCategory($request->id);
+
                 foreach($BestSoldeselectedCategory_id as $product_id)
                 {
                     $product=Product::where('id',$product_id->product_id)->where('category_id','=',$request->id)->first();
 
                     if($product)
-                        array_push($result,$product); 
+                        array_push($products,$product); 
                 }
             }
-            else
+            elseif($request->id==null)
             {
+                
+                $BestSoldeselectedCategory_id=Query::BestSoldeAllProducts();
+
                 foreach($BestSoldeselectedCategory_id as $product_id)
                 {
                     $product=Product::where('id',$product_id->product_id)->first();
 
                     if($product)
-                        array_push($result,$product); 
+                        array_push($products,$product); 
                 }
             }
             $path=array();
             $i=0;
-            foreach($result as $item)
+            foreach($products as $item)
             {
                 $path[$i]=Photoes::Where('imageable_id',$item->id)->first()->path;
                 $i++;
             }
-        return response()->json(array('result'=>$result,'path'=>$path));
+           
+        return response()->json(array('result'=>$products,'path'=>$path));
     }
 
+//=====================================================================================
 
     public function ShowCategory($name , $id)
     {    
@@ -82,14 +90,14 @@ class SiteController extends Controller
         return view ('product.category',compact('product_id'));
     }
 
-    //---------------------------------------------------
+//=====================================================================================
+
     public function ShowSubcategory($category ,$name ,$id)
     {
-    
-        $product=Product::where('id', $id)->get();
-            return view ('Product.subcategory',compact('product'));
+        $product=Product::where('id', $id)->first();
+        return view ('Product.subcategory',compact('product'));
     }
-
+//=====================================================================================
     public function aboutus()
     {
         return view ("aboutus");   

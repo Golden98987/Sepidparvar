@@ -12,13 +12,13 @@
                             <span class="pr_flash bg_green">فروش</span>
                            
                                     
-                            <img id="product_img" src="/<?=$product[0]->photoes()->first()->path; ?>" alt="تولید - محصول" data-zoom-image="{{asset('assets/images/product1.jpg')}}">
+                            <img id="product_img" src="/<?=$product->photoes()->first()->path; ?>" alt="تولید - محصول" data-zoom-image="/<?=$product->photoes()->first()->path; ?>">
                             
                             <div id="pr_item_gallery" class="product_gallery_item owl-thumbs-slider owl-carousel owl-theme">
                                 
-                                @foreach($product[0]->photoes()->get() as $photo)
+                                @foreach($product->photoes()->get() as $photo)
                                 <div class="item">
-                                    <a href="#" class="active" data-image="/<?=$photo->path; ?>" data-zoom-image="{{asset('assets/images/product1.jpg')}}">
+                                    <a href="#" class="active" data-image="/<?=$photo->path; ?>" data-zoom-image="/<?=$photo->path; ?>">
                                         
                                         <img src="/<?=$photo->path; ?>" alt="تولید - محصول">
                                        
@@ -34,15 +34,15 @@
                             <div class="product-description">
                            
                                     <div class="product-title">
-                                        <h4><a href="#">{{ $product[0]->name }}</a></h4>
+                                        <h4><a href="#">{{ $product->name }}</a></h4>
                                     </div>
                                     <div class="product_price float-left">
-                                    <span class="price">{{ $product[0]->price }}</span>
+                                    <span class="price">{{ $product->price }} تومان</span>
                                     </div>
                                     <div class="rating mt-2 float-right"><div class="product_rate" style="width:80%"></div></div>
                                     <div class="clearfix"></div>
                                     <hr>
-                                    <p>{{ $product[0]->description }}</p>
+                                    <p>{{ $product->description }}</p>
 
                             </div>
                             <hr>
@@ -55,8 +55,8 @@
                                     </div>
                                 </div>
                                 <div class="cart_btn">
-                                    <button data-id="{{ $product[0]->id }}" class="btn btn-default btn-radius btn-sm btn-addtocart addcart" type="button">افزودن به سبد خرید</button>
-                                    <a class="add_wishlist ratetoproduct" data-id="{{ $product[0]->id }}"  href="#"><i class="ti-heart"></i></a>
+                                    <button data-id="{{ $product->id }}" class="btn btn-default btn-radius btn-sm btn-addtocart addcart" type="button">افزودن به سبد خرید</button>
+                                    <a class="add_wishlist ratetoproduct" data-id="{{ $product->id }}"  href="#"><i class="ti-heart"></i></a>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -89,19 +89,19 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="Description-tab" data-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">شرح</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" id="Additional-info-tab" data-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false">اطلاعات اضافی</a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
-                                    <a class="nav-link" id="Reviews-tab" data-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">نظرات (2)</a>
+                                    <a class="nav-link" id="Reviews-tab" data-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">نظرات ({{count($product->Comments()->get())}})</a>
                                 </li>
                             </ul>
                             <div class="tab-content shop_info_tab">
                                 <div class="tab-pane fade show active" id="Description" role="tabpanel" aria-labelledby="Description-tab">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                                    <p>{{ $product->description }}</p>
+                                    <p>{{ $product->description }}</p>
                                 </div>
-                                <div class="tab-pane fade" id="Additional-info" role="tabpanel" aria-labelledby="Additional-info-tab">
+                                <!-- <div class="tab-pane fade" id="Additional-info" role="tabpanel" aria-labelledby="Additional-info-tab">
                                     <table class="table table-bordered">
                                         <tbody><tr>
                                             <td>وزن</td>
@@ -116,75 +116,102 @@
                                             <td>20 10 × 20 سانتی متر</td>
                                         </tr>
                                         </tbody></table>
-                                </div>
+                                </div> -->
                                 <div class="tab-pane fade" id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
                                     <div class="comments">
-                                        <h5>2 بررسی برای توت فرنگی ارگانیک تازه</h5>
+                                        <h5></h5>
                                         <ul class="list_none comment_list mt-4">
-                                            <li>
+                                           
+                                           @foreach ($product->Comments()->get() as $comment )
+                                        <li>
+                                           
+                                        
                                                 <div class="comment_img">
-                                                    <img src="{{asset('assets/images/client_img1.jpg')}}" alt="client_img1">
+                                                    <img src="/<?=$comment->Users()->first()->photoes()->first()->path; ?>" alt="client_img1">
                                                 </div>
                                                 <div class="comment_block">
                                                     <div class="rating"><div class="product_rate" style="width:80%"></div></div>
                                                     <p class="customer_meta">
-                                                        <span class="review_author">نیلوفر</span>
+                                                        <span class="review_author">{{$comment->Users()->first()->name}}</span>
                                                         <span class="comment-date">17 تیر 1398</span>
                                                     </p>
                                                     <div class="description">
-                                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                                    <p>{{$comment->comment}}</p>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="comment_img">
-                                                    <img src="{{asset('assets/images/client_img2.jpg')}}" alt="client_img2">
-                                                </div>
-                                                <div class="comment_block">
-                                                    <div class="rating"><div class="product_rate" style="width:100%"></div></div>
-                                                    <p class="customer_meta">
-                                                        <span class="review_author">گریس وونگ </span>
-                                                        <span class="comment-date">17 تیر 1398</span>
-                                                    </p>
-                                                    <div class="description">
-                                                        <p>این یک واقعیت طولانی است که یک خواننده هنگام مشاهده طرح آن ، از مطالب خواندن یک صفحه پریشان می شود. نکته استفاده از  این است که توزیع نامه های کم و بیش عادی دارد</p>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            
+                                            @endforeach
+                                            
                                         </ul>
                                     </div>
                                     <div class="review_form field_form">
-                                        <h5>یک بررسی اضافه کنید</h5>
-                                        <form class="row mt-3">
+                                        <h5>نظر دهید:</h5>
+                                        <!-- /// -->
+                                        <div class="row mt-3">
                                             <div class="form-group col-12">
                                                 <p class="star_rating">
-                                                    <span data-value="1"><i class="ion-android-star"></i></span>
-                                                    <span data-value="2"><i class="ion-android-star"></i></span>
-                                                    <span data-value="3"><i class="ion-android-star"></i></span>
-                                                    <span data-value="4"><i class="ion-android-star"></i></span>
-                                                    <span data-value="5"><i class="ion-android-star"></i></span>
+                                                    <span class="star_rating" data-value="{{$product->id}}" data-id="1"><i class="ion-android-star"></i></span>
+                                                    <span class="star_rating" data-value="{{$product->id}}" data-id="2"><i class="ion-android-star"></i></span>
+                                                    <span class="star_rating" data-value="{{$product->id}}" data-id="3"><i class="ion-android-star"></i></span>
+                                                    <span class="star_rating" data-value="{{$product->id}}" data-id="4"><i class="ion-android-star"></i></span>
+                                                    <span class="star_rating" data-value="{{$product->id}}" data-id="5"><i class="ion-android-star"></i></span>
                                                 </p>
                                             </div>
-                                            <div class="form-group col-12">
-                                                <textarea required="required" placeholder="متن پیام *" class="form-control" name="message" rows="4"></textarea>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <input required="required" placeholder="نام کاربری *" class="form-control" name="name" type="text">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <input required="required" placeholder="ایمیل *" class="form-control" name="email" type="email">
+                                            <div id="message" class="form-group col-12">
+                                                <textarea required="required" placeholder="متن پیام *"  class="form-control comment" name="message" rows="4"></textarea>
                                             </div>
 
+                                            <!-- <div class="form-group col-12">
+                                                <input type="file"  class="form-control file" name="filetoupload" ></textarea>
+                                            </div> -->
+
                                             <div class="form-group col-12">
-                                                <button type="submit" class="btn btn-default" name="submit" value="Submit">ارسال بررسی</button>
+                                                <button type="" data-value="{{$product->id}}" id="submitcomment" class="btn btn-default" name="submit" value="Submit">ارسال نظر</button>
                                             </div>
-                                        </form>
+                                        </div>
+                                        <!-- /// -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <script >
+                
+$(document).on("click",'#submitcomment',function(){
+        
+        
+        var comment=$('.comment').val();
+        // var Image=$('.file').val();
+        // var Imagearraye=Image.split('\\');
+        // var Imagename=Imagearraye[Imagearraye.length-1];
+        var id=$(this).attr('data-value');
+        // alert(Imagename);
+        $.ajax({
+        url: '/product/post_comment',
+        method: 'Post',
+        dataType: 'json',
+        data: {
+            id:id,
+            comment:comment
+        },
+        success:function(data)
+        {
+            if(data.url)
+            {
+                window.location=data.url;
+            }
+            else
+                alert("نظر شما ثبت شد. متشکریم.")
+                
+        }
+        
+    });
+
+});
+            
+                </script>
                 <div class="row">
                     <div class="col-12">
                         <div class="medium_divider clearfix"></div>
@@ -362,7 +389,7 @@
     </div>
 </section>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
     $(document).ready(function(){
         
@@ -390,8 +417,8 @@
             });
         });
     });
-</script>
-<script type="text/javascript">
+</script> -->
+ <script type="text/javascript">
 
     $(document).ready(function(){
         
@@ -419,6 +446,6 @@
             });
         });
     });
-    </script>
+    </script> 
 @include('layouts.organiq.partials.newslatter')
 @endsection

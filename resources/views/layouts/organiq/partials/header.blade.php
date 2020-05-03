@@ -142,19 +142,21 @@
               <div class="cart_box dropdown-menu dropdown-menu-right">
                   <ul id="cart_list" class="cart_list" >
                         <!-- @$price=0 -->
+                        <?php $total=0;?>
                       @if($Temp['basket'])  
                       @foreach($Temp['basket'] as $item)
                          <li>
-                            <a href="#" class="item_remove"><i class="ion-close"></i></a>
+                            <a  data-id="{{$item->Product()->first()->id}}" class="item_remove delete_basket"><i class="ion-close"></i></a>
                             <a href="#"><img class="item-img" src="{{asset('/').$item->Product()->first()->photoes()->first()->path}}" alt="cart_thumb1">{{$item->Product()->get()->first()->name}} </a>
                             <p><span class="float-right" class="item-num">{{$item->num}} x </span> <span class="float-right">{{$item->Product()->get()->first()->price}} </span></p>
                         </li>
+                        <?php $total+=(($item->num) * ($item->Product()->get()->first()->price));?>
                         <!-- @$price+=($item->num)* $item->Product()->get()->first()->price -->
                         @endforeach
                       @endif
                   </ul>
-                  <div class="cart_footer">
-                      <p class="cart_total">جمع کل : <span class="cart_amount"> <span class="price_symbole"> تومان</span></span>
+                  <div id="cart_footer" class="cart_footer">
+                      <p class="cart_total">جمع کل : <span class="cart_amount"> <span class="price_symbole">{{$total}} تومان</span></span>
                       </p>
                       <p class="cart_buttons"><a href="{{ Route('cart') }}" class="btn btn-default btn-radius view-cart">مشاهده سبد خرید</a>
                           <a href="{{ Route('checkout') }}" class="btn btn-dark btn-radius checkout">پرداخت</a>

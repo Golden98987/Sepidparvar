@@ -31,7 +31,7 @@
                   <div class="small_divider clearfix"></div>
                   <div class="tab-content">
                       <div class="tab-pane fade show active" id="" role="tabpanel" aria-labelledby="">
-                          <div id="soredinfo" class="row animation"  data-animation="fadeInUp" data-animation-delay="0.05s">
+                          <div id="sortedinfo" class="row animation"  data-animation="fadeInUp" data-animation-delay="0.05s">
                            @foreach($BestSoldProduct as $product)
                               <div class="col-xl-3 col-lg-4 col-sm-6" >
                                   <div class="product">
@@ -48,7 +48,7 @@
                                           </div>
                                       </div>
                                       <div class="product_info ">
-                                          <h6><a href="#">{{ $product->name }} </a></h6>
+                                          <h6><a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}">{{ $product->name }} </a></h6>
                                           <div class="rating">
                                               <div class="product_rate" style="width:80%"></div>
                                           </div>
@@ -56,7 +56,7 @@
                                       </div>
                                                               
                                   </div>                                 
-                                </div>
+                              </div>
                             @endforeach 
                            </div>
                       </div>
@@ -111,69 +111,7 @@
       </div>
   </div>
 </section>
-<script type="text/javascript">
 
-    $(document).ready(function(){
-        
-        $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-            });
-            $(".sortbycategory").click(function(){
-                var id = $(this).attr('data-id');
-                alert(id);
-
-                $.ajax({
-                    url: '/sort-by-category',
-                    method: 'Post',
-                    dataType: 'json',
-                    data: {id:id},
-                    success:function(data)
-                    {
-                        
-
-                            var sortinfo = "";
-                            
-                            for (i = 0; i < data['result'].length; i++)
-                            {
-                                
-                                sortinfo +=" <div class="+'"product"'+">"
-                                      +"<span class="+'"pr_flash bg_green"'+">فروش</span>"
-                                      +"<div class="+'"product_img"'+">"
-                                          +"<a href="+'"#"'+"><img src="+data['path'][i] +" alt="+'"product_img1"'+"></a>"   
-                                          +"<div class="+'"product_action_box"'+">"
-                                              +"<ul class="+'"list_none pr_action_btn"'+">"
-                                                  +"<li><a href="+'"#"'+"><i class="+'"ti-heart"'+"></i></a></li>"
-                                                  +"<li><a href="+'"#"'+"><i class="+'"ti-shopping-cart"'+"></i></a></li>"
-                                                  +"<li><a class="+'"btn btn-primary"' +"data-toggle="+'"modal"' +"data-target="+'".bd-example-modal-lg"'+">"
-                                                  +"<i class="+'"ti-eye"'+"></i></a></li>"
-                                              +"</ul>"
-                                          +"</div>"
-                                      +"</div>"
-                                      +"<div class="+'"product_info "'+">"
-                                          +"<h6><a href="+'"#"'+">"+ data['result'][i].name +"</a></h6>"
-                                            +"<div class="+'"rating"'+">"
-                                              +"<div class="+'"product_rate"' +"style="+'"width:80%"'+"></div>"
-                                          "</div>"
-                                          +"<span class="+'"price"'+">"+ data['result'][i].price+" </span>"
-                                      +"</div>"
-                                      +"</div>"                       
-                                  +"</div>" ;                               
-                                
-                            }
-                            // var elem = document.getElementById('soredinfo');
-                            //     elem.parentNode.removeChild(elem);
-                            $("#soredinfo").html(sortinfo);
-                            // alert('محصول با موفقیت به سبد خرید اضافه شد');
-                        
-                        
-                    }
-                    
-            });
-        });
-    });
-</script>
 
 @endsection
 

@@ -21,6 +21,7 @@ class Query extends Model
     {
         return DB::table('factor')->where('factorstate_id', '=', 2)
             ->leftJoin('factor_product','factor.id','=','factor_product.factor_id')
+            ->leftJoin('products','factor_product.product_id','products.id')->where('products.category_id',$id)
             ->selectRaw('factor_product.product_id, COALESCE(sum(factor_product.num),0) total')
             ->groupBy('factor_product.product_id')
             ->orderBy('total','desc')

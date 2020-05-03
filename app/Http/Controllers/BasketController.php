@@ -46,10 +46,21 @@ class BasketController extends Controller
     }
     public function RemoveFromBasket(Request $request)
     {
-        // $CurrentUserid= $request->user()->id; 
-        Baskets::DeleteFromBasket($request->id,3);
-        $Temp['basket']= Baskets::getcontent(3);
-        return response()->json($Temp['basket']);
+        // dd($request);
+        $CurrentUserid= $request->user()->id; 
+        Baskets::DeleteFromBasket($request->id, $CurrentUserid);
+        $basket= Baskets::getcontent( $CurrentUserid);
+        $path=array();
+        $i=0;
+
+        foreach($basket as $item)
+        {
+            $path[$i]=Photoes::Where('imageable_id',$item->Product->id)->first()->path;
+            $i++;
+        }
+        return response()->json(array('basket'=>$basket,'path'=>$path));
+
+        
 
     }
 

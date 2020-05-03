@@ -25,15 +25,15 @@
                             <th class="product-remove">حذف</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbodycontent">
                         @foreach($Temp['basket'] as $item)
                         <tr>
                         <td class="product-thumbnail"><a href="#"><img src="/<?=$item->Product()->first()->photoes()->first()->path?>" alt="product1"></a></td>
                             <td class="product-name" data-title="Product"><a href="#">{{$item->Product()->get()->first()->name}}</a></td>
-                            <td class="product-price" data-title="Price">{{$item->Product()->get()->first()->price}} تومان</td>
+                            <td class="product-price" data-title="Price">{{$item->Product()->first()->price}} تومان</td>
                             <td class="product-quantity" data-title="Quantity"><div class="quantity">
                                 <input type="button" value="-" class="minus">
-                                <input type="text" name="quantity" value="<?=$item->num;?>" title="Qty" class="qty" size="4">
+                                <input type="text" name="quantity" value="{{$item->num}}" title="Qty" class="qty" size="4">
                                 <input type="button" value="+" class="plus">
                             </div></td>
                             <?php $price=$item->Product()->get()->first()->price;
@@ -42,9 +42,10 @@
                             ?>
                             
                             <td class="product-subtotal" data-title="Total"> </td>
-                            <td class="product-remove" data-title="Remove"><a class="delete" data-id="{{$item->Product()->first()->id}}"><i class="ti-close"></i></a></td>
+                            <td class="product-remove" data-title="Remove"><a class="delete_basket" data-id="{{$item->Product()->first()->id}}"><i class="ti-close"></i></a></td>
                         </tr>
                         @endforeach
+                        
                         </tbody>
                         <tfoot>
                         <tr>
@@ -374,7 +375,7 @@
     </div>
 </section>
 <!-- END SECTION SHOP DETAIL -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
     $(document).ready(function(){
         
@@ -385,7 +386,7 @@
             });
             $(".delete").click(function(){
                 var id = $(this).attr('data-id');
-                // alert(id);
+                alert(id);
 
                 $.ajax({
                     url: '/cart/delete-from-basket',
@@ -396,18 +397,41 @@
                     {
                         // alert('محصول با موفقیت از سبد خرید حذف شد');
                         console.log(data);
-                        // jQuery.each(data.results, function(i, val) {
-                        // // here you can do your magic
-                        // $("#yourdivid").append(document.createTextNode(val.term));
-                        // $("#yourdivid").append(document.createTextNode(val.count));
+                        var basketStr = "";
+                        var baskettable="";
+                            for (i = 0; i < data['basket'].length; i++)
+                            {
+                                basketStr +="<li>"+"<a href="+"'#'"+" class="+'"item_remove"'+"><i class="+'"ion-close"'+"></i></a>";
+                                basketStr +="<a href="+'"#"'+"><img src="+'"'+"/"+ data['path'][i] +'"'+" class="+'"item-img"' +" alt="+'"cart_thumb1"'+">"+data['basket'][i]['product'].name+"</a>";
+                                basketStr +="<p><span"+" class="+'"float-right"'+" class="+'"item-num"'+">"+data['basket'][i].num+"x </span>";
+                                basketStr +="<span class="+'"float-right"'+">"+data['basket'][i]['product'].price +"</span></p> </li>";
+                                
+                                baskettable+="  <tr>"+
+                        "<td class="+'"product-thumbnail"'+"><a href="+'"#"'+"><img src="+'"'+"/"+ data['path'][i] +'"'+" alt="+'"product1"'+"></a></td>"
+                            +"<td class="+'"product-name"'+" data-title="+'"Product"'+"><a href="+'"#"'+">"+data['basket'][i]['product'].name+"</a></td>"
+                            +"<td class="+'"product-price"'+" data-title="+'"Price"'+">"+data['basket'][i]['product'].price+" تومان</td>"
+                            +"<td class="+'"product-quantity"'+" data-title="+'"Quantity"'+"><div class="+'"quantity"'+">"
+                                +"<input type="+'"button"'+" value="+'"-"'+" class="+'"minus"'+">"
+                                +"<input type="+'"text"'+" name="+'"quantity"'+" value="+data['basket'][i].num+" title="+'"Qty"'+" class="+'"qty"'+" size="+'"4"'+">"
+                                +"<input type="+'"button"'+" value="+'"+"'+" class="+'"plus"'+">"
+                            +"</div></td>"
+                            
+                            
+                            +"<td class="+'"product-subtotal"'+" data-title="+'"Total"'+"> </td>"
+                            +"<td class="+'"product-remove"'+" data-title="+'"Remove"'+"><a class="+'"delete"'+" data-id="+'"'+ data['basket'][i]['product'].id+'"'+"><i class="+'"ti-close"'+"></i></a></td>"
+                        +"</tr>";
+
+                            }
+                            $("#cart_list").html(basketStr);
+                            $("#tbodycontent").html(baskettable);
+
+                            tbodycontent
                     }
-                    // error: function (XMLHttpRequest,textStatus, errorthrown){
-                    //     console.log('AJAX error:' + errorthrown);
-                    // }
+                    
             });
         });
     });
-</script>
+</script> -->
 @include('layouts.organiq.partials.newslatter')
 
 @endsection

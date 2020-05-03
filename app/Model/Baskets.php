@@ -72,7 +72,8 @@ class Baskets extends Model
     //delete a row from basket table
     public static function DeleteFromBasket($product_id,$user_id)
     {
-        $result=Baskets::where('user_id','=',$user_id)->where('product_id','=',$product_id)->get()->first();
+        $result=Baskets::where('user_id','=',$user_id)->where('product_id','=',$product_id)->first();
+
         $result->delete();  
     }
     

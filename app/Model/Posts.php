@@ -10,7 +10,7 @@ class Posts extends Model
         'title','content'
     ];
     
-    public function photos()
+    public function photoes()
     {
         return $this->morphMany("App\Model\Photoes","imageable");
     }

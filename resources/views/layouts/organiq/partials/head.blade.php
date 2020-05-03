@@ -50,4 +50,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <!-- Latest jQuery -->
 <script src="{{asset('assets/js/jquery-1.12.4.min.js')}}"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 
