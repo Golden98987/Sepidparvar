@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'UserLoginCheck'=> \App\Http\Middleware\UserLoginCheck::class,
+        'UserLoginCheckPhpResponse'=> \App\Http\Middleware\UserLoginCheckPhpResponse::class,
     ];
 
     /**

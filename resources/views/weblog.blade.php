@@ -13,153 +13,35 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="row">
+                
+                @foreach($posts as $post)
                     <div class="col-12">
                         <div class="blog_post">
                             <div class="blog_img">
                                 <a href="#">
-                                    <img src="assets/images/blog_img1.jpg" alt="blog_img1">
+                                    <img src="/<?=$post->photoes()->first()->path; ?>">
                                 </a>
                             </div>
+                           
                             <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">خاصیت میوه های ارگانیک</a></h4>
+                                <h4 class="blog_title"><a href="#">{{$post->title}}</a></h4>
                                 <ul class="list_none blog_meta">
                                     <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
-                                    <li><a href="#"><i class="far fa-calendar"></i>25 تیر 1398</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i>4 نظر</a></li>
+                                    <li><a href="#"><i class="far fa-calendar"></i>{{$post->created_at}}</a></li>
+                                    <li><a href="#"><i class="far fa-comments"></i>{{count($post->Comments()->get())}} نظر</a></li>
                                 </ul>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                                <a href="#" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
+                                <p>{{$post->getShortContent(100)}} </p>
+                                <a href="{{ asset('/').'weblog/'.$post->title.'/'.$post->id }}" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="blog_post">
-                            <div class="blog_img">
-                                <a href="#">
-                                    <img src="assets/images/blog_img2.jpg" alt="blog_img2">
-                                </a>
-                            </div>
-                            <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">خاصیت میوه های ارگانیک</a></h4>
-                                <ul class="list_none blog_meta">
-                                    <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
-                                    <li><a href="#"><i class="far fa-calendar"></i>25 تیر 1398</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i>3 نظر</a></li>
-                                </ul>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                                <a href="#" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="blog_post">
-                            <div class="blog_img">
-                                <a href="#">
-                                    <img src="assets/images/blog_img3.jpg" alt="blog_img3">
-                                </a>
-                            </div>
-                            <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">خاصیت میوه های ارگانیک</a></h4>
-                                <ul class="list_none blog_meta">
-                                    <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
-                                    <li><a href="#"><i class="far fa-calendar"></i>25 تیر 1398</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i>5 نظر</a></li>
-                                </ul>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                                <a href="#" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="blog_post">
-                            <div class="blog_img">
-                                <div class="carousel_slide1 owl-carousel owl-theme" data-autoplay="true" data-autoheight="true" data-loop="true" data-nav="true" data-dots="false" data-autoplay-timeout="3000">
-                                    <a href="#">
-                                        <img src="assets/images/blog_img4.jpg" alt="blog_img4">
-                                    </a>
-                                    <a href="#">
-                                        <img src="assets/images/blog_img5.jpg" alt="blog_img5">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">خاصیت میوه های ارگانیک</a></h4>
-                                <ul class="list_none blog_meta">
-                                    <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
-                                    <li><a href="#"><i class="far fa-calendar"></i>25 تیر 1398</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i>5 نظر</a></li>
-                                </ul>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                                <a href="#" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="blog_post">
-                            <div class="blog_img">
-                                <a href="#">
-                                    <img src="assets/images/blog_img2.jpg" alt="blog_img2">
-                                </a>
-                            </div>
-                            <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">خاصیت میوه های ارگانیک</a></h4>
-                                <ul class="list_none blog_meta">
-                                    <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
-                                    <li><a href="#"><i class="far fa-calendar"></i>25 تیر 1398</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i>3 نظر</a></li>
-                                </ul>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                                <a href="#" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="blog_post">
-                            <div class="blog_img">
-                                <a href="#">
-                                    <img src="assets/images/blog_img1.jpg" alt="blog_img1">
-                                </a>
-                            </div>
-                            <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">خاصیت میوه های ارگانیک</a></h4>
-                                <ul class="list_none blog_meta">
-                                    <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
-                                    <li><a href="#"><i class="far fa-calendar"></i>25 تیر 1398</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i>4 نظر</a></li>
-                                </ul>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                                <a href="#" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="blog_post">
-                            <div class="blog_img">
-                                <a href="#">
-                                    <img src="assets/images/blog_img1.jpg" alt="blog_img1">
-                                </a>
-                            </div>
-                            <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">خاصیت میوه های ارگانیک</a></h4>
-                                <ul class="list_none blog_meta">
-                                    <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
-                                    <li><a href="#"><i class="far fa-calendar"></i>25 تیر 1398</a></li>
-                                    <li><a href="#"><i class="far fa-comments"></i>4 نظر</a></li>
-                                </ul>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
-                                <a href="#" class="blog_link">بیشتر بخوانید <i class="ion-ios-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
+
                 </div>
                 <div class="row">
                     <div class="col-12 mt-3 mt-lg-4">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="ion-ios-arrow-thin-left"></i></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="ion-ios-arrow-thin-right"></i></a></li>
+                            {{$posts->links()}}
                         </ul>
                     </div>
                 </div>
@@ -188,29 +70,37 @@
                     </div>
                     <div class="widget">
                         <h5 class="widget_title">دسته بندی ها</h5>
-                        <ul class="list_none widget_categories border_bottom_dash">
-                            <li><a href="#"><span class="categories_name">محصولات خشک </span><span class="categories_num">(9)</span></a></li>
-                            <li><a href="#"><span class="categories_name">سبزیجات </span><span class="categories_num">(6)</span></a></li>
-                            <li><a href="#"><span class="categories_name">میوه های تازه </span><span class="categories_num">(4)</span></a></li>
-                            <li><a href="#"><span class="categories_name">آب میوه </span><span class="categories_num">(7)</span></a></li>
-                            <li><a href="#"><span class="categories_name">وعده های غذایی تازه </span><span class="categories_num">(12)</span></a></li>
-                        </ul>
+                        @if($Temp['category'])
+                            @foreach ($Temp['category'] as $category)
+                            <?php $i=0;?>
+                            @foreach($Temp['Product'] as $product)
+                                @if(($product->category_id)==($category->id))
+                                    <?php $i++;?>
+                                @endif
+                            @endforeach
+                                <ul class="list_none widget_categories border_bottom_dash">
+                                    <li><a href="{{ asset('/').'category/'.$category->name.'/'.$category->id }}"><span class="categories_name"> {{$category->persian_name}} </span><span class="categories_num">({{$i}})</span></a></li>
+                                </ul>
+                            @endforeach
+                            @endif
                     </div>
                     <div class="widget">
                         <h5 class="widget_title">پستهای اخیر</h5>
                         <ul class="recent_post border_bottom_dash list_none">
+                            @foreach($recentposts as $post)
                             <li>
                                 <div class="post_content">
                                     <div class="post_img">
-                                        <a href="#"><img src="assets/images/letest_post1.jpg" alt="letest_post1"></a>
+                                        <a href="{{ asset('/').'weblog/'.$post->title.'/'.$post->id }}"><img src="/<?=$post->photoes()->first()->path; ?>" alt="letest_post1"></a>
                                     </div>
                                     <div class="post_info">
-                                        <h6><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a></h6>
-                                        <p class="small m-0">25 تیر 1398</p>
+                                        <h6><a href="#">{{$post->getShortContent(40)}}</a></h6>
+                                        <p class="small m-0">{{$post->created_at}}</p>
                                     </div>
                                 </div>
                             </li>
-                            <li>
+                            @endforeach
+                            <!-- <li>
                                 <div class="post_content">
                                     <div class="post_img">
                                         <a href="#"><img src="assets/images/letest_post2.jpg" alt="letest_post2"></a>
@@ -231,10 +121,10 @@
                                         <p class="small m-0">25 تیر 1398</p>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
-                    <div class="widget">
+                    <!-- <div class="widget">
                         <h5 class="widget_title">برچسب ها</h5>
                         <div class="tags">
                             <a href="#">طراحی </a>
@@ -243,7 +133,7 @@
                             <a href="#">وبلاگ </a><a href="#">مدرن به </a>
                             <a href="#">نقل از </a><a href="#">تبلیغات</a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="widget">
                         <h5 class="widget_title">غذاهای اینستگرام</h5>
                         <ul class="list_none instafeed">

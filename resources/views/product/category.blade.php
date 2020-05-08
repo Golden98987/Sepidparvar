@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                        <span class="align-middle">نمایش 1-9 از 50 نتیجه</span>
+                        <span class="align-middle">نمایش {{$products->count()}}  نتیجه</span>
                         <div class="list_grid_icon">
                             <a href="javascript:Void(0);" class="shorting_icon grid_view active"><i class="ion-grid"></i></a>
                             <a href="javascript:Void(0);" class="shorting_icon list_view"><i class="ion-navicon-round"></i></a>
@@ -32,13 +32,13 @@
                     </div>
                 </div>
                 <div class="row shop_container grid_view">     
-                    @foreach ($product_id as $product)
+                    @foreach ($products as $product)
 
                         <div class="col-lg-4 col-sm-6">
                             <div class="product">
                                 <span class="pr_flash bg_green">فروش</span>
                                 <div class="product_img">
-                                    <a href="#"><img src="/<?php  echo $product->photoes()->first()->path?>" alt="product_img1"></a>
+                                    <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img src="/<?php  echo $product->photoes()->first()->path?>" alt="product_img1"></a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
                                             <li><a href="#"><i class="ti-heart"></i></a></li>
@@ -49,7 +49,7 @@
                                 </div>
                                     
                                 <div  class="product_info">
-                                <h6><a   href="#">{{ $product->name }}</a></h6>
+                                <h6><a   href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}">{{ $product->name }}</a></h6>
                                     <div class="rating"><div class="product_rate" style="width:80%"></div></div>
                                     <span class="price">{{ $product->price }} </span>
                                     <div class="pr_desc">
@@ -69,14 +69,17 @@
 
                     
                 </div>
+                
                 <div class="row">
                     <div class="col-12 mt-3 mt-lg-4">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="ion-ios-arrow-thin-left"></i></a></li>
+                        
+                            {{$products->links()}}
+                            <!-- <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="ion-ios-arrow-thin-left"></i></a></li>
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="ion-ios-arrow-thin-right"></i></a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="ion-ios-arrow-thin-right"></i></a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -85,15 +88,22 @@
                 <div class="sidebar">
                     <div class="widget">
                         <h5 class="widget_title">دسته بندی ها</h5>
-
+                            @if($Temp['category'])
                             @foreach ($Temp['category'] as $category)
+                            <?php $i=0;?>
+                            @foreach($Temp['Product'] as $product)
+                                @if(($product->category_id)==($category->id))
+                                    <?php $i++;?>
+                                @endif
+                            @endforeach
                                 <ul class="list_none widget_categories border_bottom_dash">
-                                    <li><a href="{{ asset('/').'category/'.$category->name.'/'.$category->id }}"><span class="categories_name"> {{$category->persian_name}} </span><span class="categories_num">{{$category->id}}</span></a></li>
+                                    <li><a href="{{ asset('/').'category/'.$category->name.'/'.$category->id }}"><span class="categories_name"> {{$category->persian_name}} </span><span class="categories_num">({{$i}})</span></a></li>
                                 </ul>
                             @endforeach
+                            @endif
                         
                     </div>
-                    <div class="widget">
+                    <!-- <div class="widget">
                         <h5 class="widget_title">فیلتر</h5>
                         <div class="filter_price">
                             <div id="price_filter"></div>
@@ -104,55 +114,33 @@
                                 <button type="submit" class="btn btn-default btn-sm">فیلتر</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="widget">
                         <h5 class="widget_title">موارد اخیر</h5>
                         <ul class="recent_post border_bottom_dash list_none">
-                            <li>
+                        @foreach($recentproducts as $product)    
+                        <li>
                                 <div class="post_img">
-                                    <a href="#"><img src="{{asset('assets/images/shop_small1.jpg')}}" alt="shop_small1')}}"></a>
+                                    <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img src="/<?=$product->Photoes()->first()->path; ?>" alt="shop_small1')}}"></a>
                                 </div>
                                 <div class="post_content">
-                                    <h6><a href="#">میوه 100% ارگانیک</a></h6>
+                                    <h6><a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}">{{$product->name}}</a></h6>
                                     <div class="rating"><div class="product_rate" style="width:100%"></div></div>
-                                    <div class="product_price"><span class="price">800 تومان</span></div>
+                                    <div class="product_price"><span class="price">{{$product->price}} تومان</span></div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="post_img">
-                                    <a href="#"><img src="{{asset('assets/images/shop_small2.jpg')}}" alt="shop_small2"></a>
-                                </div>
-                                <div class="post_content">
-                                    <h6><a href="#">میوه های تازه</a></h6>
-                                    <div class="rating"><div class="product_rate" style="width:80%"></div></div>
-                                    <div class="product_price"><span class="price">800 تومان</span></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="post_img">
-                                    <a href="#"><img src="{{asset('assets/images/shop_small3.jpg')}}" alt="shop_small3"></a>
-                                </div>
-                                <div class="post_content">
-                                    <h6><a href="#">محصولات ارگانیک</a></h6>
-                                    <div class="rating"><div class="product_rate" style="width:60%"></div></div>
-                                    <div class="product_price"><span class="price">800 تومان</span></div>
-                                </div>
-                            </li>
+                        @endforeach
                         </ul>
                     </div>
-                    <div class="widget">
+                    <!-- <div class="widget">
                         <h5 class="widget_title">برچسب ها</h5>
                         <div class="tags">
-                            <a href="#">عمومی</a>
-                            <a href="#">طراحی</a>
-                            <a href="#">مارک</a>
-                            <a href="#">برند</a>
-                            <a href="#">مدرن</a>
-                            <a href="#">وبلاگ</a>
-                            <a href="#">نقل قول</a>
-                            <a href="#">تبلیغات</a>
+                            @foreach($product->tags()->get() as $tag)
+                            <a href="#">{{$tag->name}} </a>
+                            @endforeach
+                            
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

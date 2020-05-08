@@ -49,8 +49,8 @@
                             <div class="cart_extra">
                                 <div class="cart-product-quantity">
                                     <div class="quantity">
-                                        <input type="button" value="-" class="minus"/>
-                                        <input type="text" name="quantity" value="1" title="Qty" class="qty" size="4"/>
+                                        <input type="button"  value="-" class="minus"/>
+                                        <input type="text" readonly id="prd_num" name="quantity" value="1" title="Qty" class="qty" size="4"/>
                                         <input type="button" value="+" class="plus"/>
                                     </div>
                                 </div>
@@ -62,8 +62,10 @@
                             <div class="clearfix"></div>
                             <hr>
                             <ul class="product-meta list_none">
-                                <li>دسته: <a href="#">میوه های تازه</a> ، <a href="#"></a></li>
-                                <li>برچسب ها: <a href="#" rel="tag">میوه ها</a> ، <a href="#" rel="tag">طبیعی</a> ، <a href="#" rel="tag">ارگانیک</a> </li>
+                                <li>دسته: <a href="#">{{$product->category()->first()->persian_name}}</a> ، <a href="#"></a></li>
+                                <li>برچسب ها: @foreach($product->tags()->get() as $tag)<a href="/tags/{{$tag->id}}/products" rel="tag">{{$tag->name}}</a> ،
+                                @endforeach
+                             </li>
                             </ul>
                             <div class="product_share d-block d-sm-flex align-items-center">
                                 <span>به اشتراک گذاشتن با:</span>
@@ -177,41 +179,7 @@
                         </div>
                     </div>
                 </div>
-                <script >
-                
-$(document).on("click",'#submitcomment',function(){
-        
-        
-        var comment=$('.comment').val();
-        // var Image=$('.file').val();
-        // var Imagearraye=Image.split('\\');
-        // var Imagename=Imagearraye[Imagearraye.length-1];
-        var id=$(this).attr('data-value');
-        // alert(Imagename);
-        $.ajax({
-        url: '/product/post_comment',
-        method: 'Post',
-        dataType: 'json',
-        data: {
-            id:id,
-            comment:comment
-        },
-        success:function(data)
-        {
-            if(data.url)
-            {
-                window.location=data.url;
-            }
-            else
-                alert("نظر شما ثبت شد. متشکریم.")
-                
-        }
-        
-    });
-
-});
-            
-                </script>
+               
                 <div class="row">
                     <div class="col-12">
                         <div class="medium_divider clearfix"></div>
@@ -224,11 +192,15 @@ $(document).on("click",'#submitcomment',function(){
                         </div>
                         <div class="small_divider clearfix"></div>
                         <div class="product_slider carousel_slide3 owl-carousel owl-theme nav_top_right2" data-margin="30" data-nav="true" data-dots="false">
+                           
+                        @foreach($relatedproducts as $product)
                             <div class="item">
                                 <div class="product">
                                     <span class="pr_flash bg_green">فروش</span>
                                     <div class="product_img">
-                                        <a href="#"><img src="{{asset('assets/images/product_img1.jpg')}}" alt="product_img1"></a>
+                                        @if($product->Photoes()->first())
+                                        <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img src="/<?=$product->Photoes()->first()->path; ?>" alt="product_img1"></a>
+                                        @endif
                                         <div class="product_action_box">
                                             <ul class="list_none pr_action_btn">
                                                 <li><a href="#"><i class="ti-heart"></i></a></li>
@@ -238,13 +210,15 @@ $(document).on("click",'#submitcomment',function(){
                                         </div>
                                     </div>
                                     <div class="product_info">
-                                        <h6><a href="#">توت فرنگی ارگانیک تازه</a></h6>
+                                        <h6><a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}">{{$product->name}}</a></h6>
                                         <div class="rating"><div class="product_rate" style="width:80%"></div></div>
-                                        <span class="price">35.00 تومان</span>
+                                        <span class="price">{{$product->price}} تومان</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
+                            @endforeach
+                            
+                            <!-- <div class="item">
                                 <div class="product">
                                     <span class="pr_flash bg_orange">-10٪</span>
                                     <div class="product_img">
@@ -321,7 +295,7 @@ $(document).on("click",'#submitcomment',function(){
                                         <span class="price">33.00 تومان</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -332,8 +306,14 @@ $(document).on("click",'#submitcomment',function(){
                         <h5 class="widget_title">دسته بندی ها</h5>
 
                         @foreach ($Temp['category'] as $category)
+                            <?php $i=0;?>
+                            @foreach($Temp['Product'] as $product)
+                                @if(($product->category_id)==($category->id))
+                                    <?php $i++;?>
+                                @endif
+                            @endforeach
                             <ul class="list_none widget_categories border_bottom_dash">
-                                <li><a href="{{ asset('/').'category/'.$category->name.'/'.$category->id }}"><span class="categories_name">{{ $category->persian_name }}</span><span class="categories_num">(9)</span></a></li>
+                                <li><a href="{{ asset('/').'category/'.$category->name.'/'.$category->id }}"><span class="categories_name">{{ $category->persian_name }}</span><span class="categories_num">({{$i}})</span></a></li>
                             </ul>
                         @endforeach
                         
@@ -341,17 +321,19 @@ $(document).on("click",'#submitcomment',function(){
                     <div class="widget">
                         <h5 class="widget_title">موارد اخیر</h5>
                         <ul class="recent_post border_bottom_dash list_none">
-                            <li>
+                        @foreach($recentproducts as $product)    
+                        <li>
                                 <div class="post_img">
-                                    <a href="#"><img src="{{asset('assets/images/shop_small1.jpg')}}" alt="shop_small1"></a>
+                                    <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img src="/<?=$product->Photoes()->first()->path;?>" alt="shop_small1')}}"></a>
                                 </div>
                                 <div class="post_content">
-                                    <h6><a href="#">100٪ آبهای ارگانیک</a></h6>
+                                    <h6><a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}">{{$product->name}}</a></h6>
                                     <div class="rating"><div class="product_rate" style="width:100%"></div></div>
-                                    <div class="product_price"><span class="price">33.00 تومان</span></div>
+                                    <div class="product_price"><span class="price">{{$product->price}} تومان</span></div>
                                 </div>
                             </li>
-                            <li>
+                        @endforeach
+                            <!-- <li>
                                 <div class="post_img">
                                     <a href="#"><img src="{{asset('assets/images/shop_small2.jpg')}}" alt="shop_small2"></a>
                                 </div>
@@ -370,17 +352,15 @@ $(document).on("click",'#submitcomment',function(){
                                     <div class="rating"><div class="product_rate" style="width:60%"></div></div>
                                     <div class="product_price"><span class="price">800 تومان</span></div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <div class="widget">
                         <h5 class="widget_title">برچسب ها</h5>
                         <div class="tags">
-                            <a href="#">طراحی </a>
-                            <a href="#">عمومی </a><a href="#">jQuery </a>
-                            <a href="#">برند سازی </a>
-                            <a href="#">وبلاگ </a><a href="#">مدرن به </a>
-                            <a href="#">نقل از </a><a href="#">تبلیغات</a>
+                             @foreach($product->tags()->get() as $tag)
+                            <a href="#">{{$tag->name}} </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

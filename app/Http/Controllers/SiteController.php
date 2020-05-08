@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Model\Category;
 use App\Model\Product;
 use App\Model\Photoes;
@@ -33,7 +34,7 @@ class SiteController extends Controller
             
         foreach($MostPopularProduct_id as $product_id)
         {
-            array_push($MostPopularProduct,Product::where('id',$product_id->rateable_id)->first()); 
+            array_push($MostPopularProduct,Product::with('category')->where('id',$product_id->rateable_id)->first()); 
         }
 
         return view('home',compact('BestSoldProduct','MostPopularProduct'));
@@ -52,7 +53,7 @@ class SiteController extends Controller
 
                 foreach($BestSoldeselectedCategory_id as $product_id)
                 {
-                    $product=Product::where('id',$product_id->product_id)->where('category_id','=',$request->id)->first();
+                    $product=Product::with('category')->where('id',$product_id->product_id)->where('category_id','=',$request->id)->first();
 
                     if($product)
                         array_push($products,$product); 
@@ -65,7 +66,7 @@ class SiteController extends Controller
 
                 foreach($BestSoldeselectedCategory_id as $product_id)
                 {
-                    $product=Product::where('id',$product_id->product_id)->first();
+                    $product=Product::with('category')->where('id',$product_id->product_id)->first();
 
                     if($product)
                         array_push($products,$product); 
@@ -86,16 +87,20 @@ class SiteController extends Controller
 
     public function ShowCategory($name , $id)
     {    
-        $product_id=Product::where('category_id', $id)->get();
-        return view ('product.category',compact('product_id'));
+        $products=Product::where('category_id', $id)->simplepaginate(6);
+        $recentproducts=Product::orderBy('created_at','Desc')->take(3)->get();
+        return view ('product.category',compact('products','recentproducts'));
     }
 
 //=====================================================================================
 
     public function ShowSubcategory($category ,$name ,$id)
     {
-        $product=Product::where('id', $id)->first();
-        return view ('Product.subcategory',compact('product'));
+        $product=Product::with('category')->where('id', $id)->first();
+        $recentproducts=Product::orderBy('created_at','Desc')->take(3)->get();
+        $relatedproducts=Product::where('category_id',$product->category_id)->get();
+
+        return view ('Product.subcategory',compact('product','recentproducts','relatedproducts'));
     }
 //=====================================================================================
     public function aboutus()
@@ -106,8 +111,5 @@ class SiteController extends Controller
     {
         return view ("contactus");   
     }
-    public function weblog()
-    {
-        return view ("weblog");   
-    }
+    
 }

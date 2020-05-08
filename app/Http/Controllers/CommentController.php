@@ -25,7 +25,7 @@ class CommentController extends Controller
 
     public function StoreComment(Request $request)
     {
-        // dd($request->score);
+      //   dd($request);
         if($request->comment)
          {  
             $CurrentUserId=$request->user()->id;

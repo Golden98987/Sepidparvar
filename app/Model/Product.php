@@ -4,6 +4,7 @@ namespace App\Model;
 use App\Model\Comments;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Model\Rates;
 
 class Product extends Model
 {
@@ -62,7 +63,18 @@ class Product extends Model
     {
         return Str::limit($this->description, 15, '...');
     }
-    //save score for a product in Comment table
     
-    
+    public static function RateToProduct($rate_id,$user_id)
+    {
+        $RateToProduct=new Rates;
+        $RateToProduct->rateable_id=$rate_id;
+        $RateToProduct->user_id=$user_id;
+        $RateToProduct->rate=1;
+        $RateToProduct->created_at=now();
+        $RateToProduct->updated_at=now();
+        $RateToProduct->save();
+    } 
 }
+    
+    
+

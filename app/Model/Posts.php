@@ -1,6 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Model;
+use Illuminate\Support\Str;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,10 @@ class Posts extends Model
         'title','content'
     ];
     
+    public function Comments()
+    {
+        return $this->morphMany('App\Model\Comments','commentable');
+    }
     public function photoes()
     {
         return $this->morphMany("App\Model\Photoes","imageable");
@@ -20,4 +25,8 @@ class Posts extends Model
         return $this->morphtoMany("App\Model\Tags","taggable");
     }
 
+    public function getShortContent($num)
+    {
+        return Str::limit($this->content_one, $num, '...');
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,16 +8,16 @@ class Tags extends Model
 {
     public function posts()
     {
-        return $this->morphedByMany("App\Models\Posts","taggable");
+        return $this->morphedByMany("App\Model\Posts","taggable");
     }
 
     public function videos()
     {
-        return $this->morphedByMany("App\Models\Videos","taggable");
+        return $this->morphedByMany("App\Model\Videos","taggable");
     }
 
-    public function kalas()
+    public function Products()
     {
-        return $this->morphedByMany("App\Models\kala","taggable");
+        return $this->morphedByMany("App\Model\Product","taggable");
     }
 }

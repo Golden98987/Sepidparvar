@@ -24,7 +24,11 @@ class BasketController extends Controller
     public function AddToCart(Request $request)
     {
         $CurrentUserid= $request->user()->id; 
-        Baskets::AddToBasket($request->id,$CurrentUserid);
+        if($request->num)
+            $num=$request->num;
+            else
+            $num=1;
+        Baskets::AddToBasket($request->id,$CurrentUserid,$num);
         $basket= Baskets::getcontent($CurrentUserid);
         $path=array();
         $i=0;
@@ -37,19 +41,12 @@ class BasketController extends Controller
         return response()->json(array('basket'=>$basket,'path'=>$path));
 
     }
-    public function RateToProduct(Request $request)
-    {
-        $CurrentUserid= $request->user()->id; 
-        Baskets::RateToProduct($request->id,$CurrentUserid);
-        return response()->json([$CurrentUserid]);
-
-    }
+    
     public function RemoveFromBasket(Request $request)
     {
-        // dd($request);
         $CurrentUserid= $request->user()->id; 
         Baskets::DeleteFromBasket($request->id, $CurrentUserid);
-        $basket= Baskets::getcontent( $CurrentUserid);
+        $basket= Baskets::getcontent($CurrentUserid);
         $path=array();
         $i=0;
 
@@ -64,6 +61,21 @@ class BasketController extends Controller
 
     }
 
+    public function EditBasket(Request $request)
+    {
+        $CurrentUserid= $request->user()->id;
+        // dd($request->num);
+        Baskets::EditBasket($request->id,$CurrentUserid,$request->num);
+        $basket= Baskets::getcontent( $CurrentUserid);
+        $path=array();
+        $i=0;
 
+        foreach($basket as $item)
+        {
+            $path[$i]=Photoes::Where('imageable_id',$item->Product->id)->first()->path;
+            $i++;
+        }
+        return response()->json(array('basket'=>$basket,'path'=>$path));
+    }
 
 }

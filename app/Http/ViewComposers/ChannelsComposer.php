@@ -9,6 +9,7 @@ use App\Model\Gender;
 use App\Model\Baskets;
 use App\User;
 
+use Illuminate\Support\Facades\DB;
 
 class ChannelsComposer
 {

@@ -2552,7 +2552,7 @@ body.active {
 	display: inline-block;
 	vertical-align: middle;
 }
-.quantity .minus, .quantity .plus {
+.quantity .minus, .quantity .edit_cart .plus {
 	display: block;
 	float: right;
 	border-radius: 50px;
@@ -2575,7 +2575,7 @@ body.active {
 	text-align: center;
 	padding: 0;
 }
-.quantity .minus:hover, .quantity .plus:hover {
+.quantity .minus:hover, .quantity .edit_cart .plus:hover {
 	background-color: #07d765;
 	color: #fff;
 }

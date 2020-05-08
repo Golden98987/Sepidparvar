@@ -23,7 +23,7 @@
                       @foreach ($Temp['category'] as $category)
                         <li class="nav-item">
                             <a class="nav-link active sortbycategory" data-id="{{$category->id}}" data-toggle="tab" href="{{$category->id}}" role="tab"
-                            aria-controls="tab-1" aria-selected="true"><span class="pr_icon1"></span> {{$category->persian_name}}</a>
+                            aria-controls="tab-1" aria-selected="true"><span class="sortbycategory pr_icon1"></span> {{$category->persian_name}}</a>
                         </li>  
                       @endforeach
                       
@@ -37,7 +37,7 @@
                                   <div class="product">
                                       <span class="pr_flash bg_green">فروش</span>
                                       <div class="product_img">
-                                          <a href="#"><img src="{{asset('/').$product->Photoes()->first()->path}}" alt="product_img1"></a>    
+                                          <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img src="{{asset('/').$product->Photoes()->first()->path}}" alt="product_img1"></a>    
                                           <div class="product_action_box">
                                               <ul class="list_none pr_action_btn">
                                                   <li><a href="#"><i class="ti-heart"></i></a></li>

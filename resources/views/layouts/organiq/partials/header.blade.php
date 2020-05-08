@@ -128,18 +128,49 @@
           <li><a href="javascript:void(0);" class="nav-link search_trigger"><i class="ion-ios-search-strong"></i></a>
               <div class="search-overlay">
                   <div class="search_wrap">
-                      <form>
+                      <form method="Get" action="{{Route('search')}}">
                           <div class="rounded_input">
-                              <input type="text" placeholder="جستجو" class="form-control" id="search_input">
+                              <input name="search_item" type="text" placeholder="جستجو" class="form-control" id="search_input">
                           </div>
                           <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
                       </form>
                   </div>
               </div>
           </li>
-          <li class="dropdown cart_wrap">
-          <a class="nav-link" id="basketshow" href="{{ Route('cart') }}" data-toggle="dropdown"><i class="ion-bag"></i><span class="cart_count">2</span></a>
-              <div class="cart_box dropdown-menu dropdown-menu-right">
+    <!-- <script>
+        $(document).on("click",'.search_icon',function(){
+        
+        
+        var SearchItem=$('#search_input').val();
+        $.ajax({
+        url: '/product/search_products',
+        method: 'Post',
+        dataType: 'json',
+        data: {
+            
+            SearchItem:SearchItem
+        },
+        success:function(data)
+        {
+            
+            // {     message="<textarea required="+'"required"'+" placeholder="+'"متن پیام *"'+ "  class="+'"form-control comment"'+" name="+ '"message"'+" rows="+'"4"'+"></textarea>";
+                // $('#message').html(message);
+                // alert("نظر شما ثبت شد. متشکریم.");
+               
+                
+        }
+        
+        });
+
+    }); -->
+    </script>
+          <li class="dropdown cart_wrap " id="basketheader">
+          @if($Temp['basket'])  
+          <a class="nav-link" id="basketshow" href="/cart" data-toggle="dropdown"><i class="ion-bag"></i><span class="cart_count">{{count($Temp['basket'])}}</span></a>
+          @else 
+          <a class="nav-link" id="basketshow" href="/cart" data-toggle="dropdown"><i class="ion-bag"></i><span class="cart_count">0</span></a>
+            @endif
+          <div class="cart_box dropdown-menu dropdown-menu-right">
                   <ul id="cart_list" class="cart_list" >
                         <!-- @$price=0 -->
                         <?php $total=0;?>
@@ -153,7 +184,7 @@
                         <?php $total+=(($item->num) * ($item->Product()->get()->first()->price));?>
                         <!-- @$price+=($item->num)* $item->Product()->get()->first()->price -->
                         @endforeach
-                      @endif
+                     
                   </ul>
                   <div id="cart_footer" class="cart_footer">
                       <p class="cart_total">جمع کل : <span class="cart_amount"> <span class="price_symbole">{{$total}} تومان</span></span>
@@ -162,6 +193,7 @@
                           <a href="{{ Route('checkout') }}" class="btn btn-dark btn-radius checkout">پرداخت</a>
                       </p>
                   </div>
+                  @endif
                 
               </div>
           </li>
