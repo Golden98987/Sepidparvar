@@ -5,35 +5,39 @@
           <div class="col-xl-6 col-lg-8">
               <div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.02s">
                   <div class="heading_s1 text-center">
-                      <h2>مشتری ما می گویند!</h2>
+                      <h2>مشتریان ما چه می گویند!</h2>
                   </div>
                   <p class="animation" data-animation="fadeInUp" data-animation-delay="0.03s">
-                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
+                     </p>
               </div>
               <div class="small_divider"></div>
           </div>
       </div>
       <div class="row justify-content-center ltr">
+
           <div class="col-12 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
               <div class="testimonial_slider testimonial_style1 carousel_slide3 owl-carousel owl-theme fl"
                    data-margin="30" data-loop="true" data-autoplay="true" data-dots="false">
-                  <div class="testimonial_box">
+
+                   @foreach($Comments as $comment)
+                  <div  class="testimonial_box">
                       <div class="testi_desc">
-                          <p>
-                              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                          </p>
+                          <p style="height:70px" >
+                          {{$comment->getShortContent(100)}}
+                        </p>
                       </div>
                       <div class="testi_meta">
                           <div class="testimonial_img">
-                              <img src="{{asset('assets/images/client_img1.jpg')}}" alt="مشتری">
+                              <img src="/<?=$comment->Users()->first()->photoes()->first()->path; ?>" alt="مشتری">
                           </div>
                           <div class="testi_user">
-                              <h5>مبارک والتر</h5>
-                              <span>طراح وب</span>
+                              <h5>{{$comment->Users()->first()->name}}</h5>
+                              <span>مشتری</span>
                           </div>
                       </div>
                   </div>
-                  <div class="testimonial_box">
+                  @endforeach
+                  <!-- <div class="testimonial_box">
                       <div class="testi_desc">
                           <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
                       </div>
@@ -60,7 +64,7 @@
                               <span>طراح وب</span>
                           </div>
                       </div>
-                  </div>
+                  </div> -->
               </div>
           </div>
       </div>

@@ -6,7 +6,7 @@
                 <div class="text-center">
                     <div class="heading_s1 text-center animation" data-animation="fadeInUp"
                          data-animation-delay="0.02s">
-                        <h2>شریک زندگی ما</h2>
+                        <h2>شرکای ما</h2>
                     </div>
                     <p class="animation" data-animation="fadeInUp" data-animation-delay="0.03s">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
                     <div class="small_divider"></div>

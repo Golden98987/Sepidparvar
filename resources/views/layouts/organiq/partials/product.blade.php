@@ -37,7 +37,7 @@
                                   <div class="product">
                                       <span class="pr_flash bg_green">فروش</span>
                                       <div class="product_img">
-                                          <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img src="{{asset('/').$product->Photoes()->first()->path}}" alt="product_img1"></a>    
+                                          <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img style="height:150px" src="{{asset('/').$product->Photoes()->first()->path}}" alt="product_img1"></a>    
                                           <div class="product_action_box">
                                               <ul class="list_none pr_action_btn">
                                                   <li><a href="#"><i class="ti-heart"></i></a></li>
@@ -52,7 +52,7 @@
                                           <div class="rating">
                                               <div class="product_rate" style="width:80%"></div>
                                           </div>
-                                          <span class="price">{{ $product->price }} </span>
+                                          <span class="price">{{ $product->price }} تومان</span>
                                       </div>
                                                               
                                   </div>                                 

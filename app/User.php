@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Gender','gender_id','id');
     }
 
+    public function Post()
+    {
+        return $this->belongsTo('App\Models\Gender','user_id','id');
+    }
+
     public function Kala()
     {
         return $this->belongsToMany(Product::class, 'basket');

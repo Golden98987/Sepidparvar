@@ -33,10 +33,12 @@ class ProductController extends Controller
     
     public function SearchProducts(Request $request)
     {
-        $SearchItem= $request->SearchItem; 
-        $product_result=Product::with('category')->where('name','LIKE',"%$SearchItem%")
-        ->get();
-        dd($product_result);
+        $SearchItem= $request->search_item; 
+        $products=Product::where('name','LIKE',"%$SearchItem%")
+        ->orWhere('description','LIKE',"%$SearchItem%")
+        ->simplepaginate(6);
+        $recentproducts=Product::orderBy('created_at','Desc')->take(3)->get();
+        return view ('product.category',compact('products','recentproducts'));
 
     }
     

@@ -24,7 +24,7 @@
                             </div>
                            
                             <div class="blog_content">
-                                <h4 class="blog_title"><a href="#">{{$post->title}}</a></h4>
+                                <h4 class="blog_title"><a href="{{ asset('/').'weblog/'.$post->title.'/'.$post->id }}">{{$post->title}}</a></h4>
                                 <ul class="list_none blog_meta">
                                     <li><a href="#"><i class="far fa-user"></i>توسط <span class="text_default">مدیر</span></a></li>
                                     <li><a href="#"><i class="far fa-calendar"></i>{{$post->created_at}}</a></li>
@@ -50,15 +50,15 @@
                 <div class="sidebar">
                     <div class="widget">
                         <div class="search_widget">
-                            <form>
-                                <input required="" placeholder="جستجو..." type="text">
+                        <form method="get" action="/post/search_posts">
+                                <input name="search_item" required="" placeholder="جستجو..." type="text">
                                 <button type="submit" class="btn-submit" name="submit" value="Submit">
                                     <span class="ti-search"></span>
                                 </button>
                             </form>
                         </div>
                     </div>
-                    <div class="widget">
+                    <!-- <div class="widget">
                         <h5 class="widget_title">درمورد من</h5>
                         <div class="about_widget">
                             <a href="#"><img src="assets/images/about_author.jpg" alt="About_author"></a>
@@ -67,7 +67,7 @@
                             <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
                             </p>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="widget">
                         <h5 class="widget_title">دسته بندی ها</h5>
                         @if($Temp['category'])
@@ -94,7 +94,7 @@
                                         <a href="{{ asset('/').'weblog/'.$post->title.'/'.$post->id }}"><img src="/<?=$post->photoes()->first()->path; ?>" alt="letest_post1"></a>
                                     </div>
                                     <div class="post_info">
-                                        <h6><a href="#">{{$post->getShortContent(40)}}</a></h6>
+                                        <h6><a href="{{ asset('/').'weblog/'.$post->title.'/'.$post->id }}">{{$post->getShortContent(40)}}</a></h6>
                                         <p class="small m-0">{{$post->created_at}}</p>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                             <a href="#">نقل از </a><a href="#">تبلیغات</a>
                         </div>
                     </div> -->
-                    <div class="widget">
+                    <!-- <div class="widget">
                         <h5 class="widget_title">غذاهای اینستگرام</h5>
                         <ul class="list_none instafeed">
                             <li><a href="#"><img src="assets/images/insta_img1.jpg" alt="insta_img"><span class="insta_icon"><i class="ti-instagram"></i></span></a></li>
@@ -146,7 +146,7 @@
                             <li><a href="#"><img src="assets/images/insta_img7.jpg" alt="insta_img"><span class="insta_icon"><i class="ti-instagram"></i></span></a></li>
                             <li><a href="#"><img src="assets/images/insta_img8.jpg" alt="insta_img"><span class="insta_icon"><i class="ti-instagram"></i></span></a></li>
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="widget">
                         <h5 class="widget_title">بیا دنبالم</h5>
                         <ul class="list_none social_icons radius_social">

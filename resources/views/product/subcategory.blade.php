@@ -169,7 +169,7 @@
                                             </div> -->
 
                                             <div class="form-group col-12">
-                                                <button type="" data-value="{{$product->id}}" id="submitcomment" class="btn btn-default" name="submit" value="Submit">ارسال نظر</button>
+                                                <button data-value="/product/post_comment"  data-id="{{$product->id}}" id="submitcomment" class="btn btn-default" name="submit" value="Submit">ارسال نظر</button>
                                             </div>
                                         </div>
                                         <!-- /// -->
@@ -199,13 +199,13 @@
                                     <span class="pr_flash bg_green">فروش</span>
                                     <div class="product_img">
                                         @if($product->Photoes()->first())
-                                        <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img src="/<?=$product->Photoes()->first()->path; ?>" alt="product_img1"></a>
+                                        <a href="{{ asset('/').'category/'.$product->Category()->first()->name.'/'.$product->name.'/'.$product->id }}"><img style="height:200px" src="/<?=$product->Photoes()->first()->path; ?>" alt="product_img1"></a>
                                         @endif
                                         <div class="product_action_box">
                                             <ul class="list_none pr_action_btn">
                                                 <li><a href="#"><i class="ti-heart"></i></a></li>
                                                 <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                                <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
+                                                <!-- <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -218,84 +218,7 @@
                             </div>
                             @endforeach
                             
-                            <!-- <div class="item">
-                                <div class="product">
-                                    <span class="pr_flash bg_orange">-10٪</span>
-                                    <div class="product_img">
-                                        <a href="#"><img src="{{asset('assets/images/product_img2.jpg')}}" alt="product_img2"></a>
-                                        <div class="product_action_box">
-                                            <ul class="list_none pr_action_btn">
-                                                <li><a href="#"><i class="ti-heart"></i></a></li>
-                                                <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                                <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_info">
-                                        <h6><a href="#">انگورهای تازه آلی</a></h6>
-                                        <div class="rating"><div class="product_rate" style="width:80%"></div></div>
-                                        <span class="price">40.00 تومان</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="product">
-                                    <div class="product_img">
-                                        <a href="#"><img src="{{asset('assets/images/product_img3.jpg')}}" alt="product_img3"></a>
-                                        <div class="product_action_box">
-                                            <ul class="list_none pr_action_btn">
-                                                <li><a href="#"><i class="ti-heart"></i></a></li>
-                                                <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                                <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_info">
-                                        <h6><a href="#">خیار ارگانیک تازه</a></h6>
-                                        <div class="rating"><div class="product_rate" style="width:60%"></div></div>
-                                        <span class="price">52.00 تومان</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="product">
-                                    <span class="pr_flash bg_green">فروش</span>
-                                    <div class="product_img">
-                                        <a href="#"><img src="{{asset('assets/images/product_img4.jpg')}}" alt="product_img4"></a>
-                                        <div class="product_action_box">
-                                            <ul class="list_none pr_action_btn">
-                                                <li><a href="#"><i class="ti-heart"></i></a></li>
-                                                <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                                <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_info">
-                                        <h6><a href="#">پرتقال ارگانیک تازه</a></h6>
-                                        <div class="rating"><div class="product_rate" style="width:100%"></div></div>
-                                        <span class="price">39.00 تومان</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="product">
-                                    <div class="product_img">
-                                        <a href="#"><img src="{{asset('assets/images/product_img5.jpg')}}" alt="product_img5"></a>
-                                        <div class="product_action_box">
-                                            <ul class="list_none pr_action_btn">
-                                                <li><a href="#"><i class="ti-heart"></i></a></li>
-                                                <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                                <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_info">
-                                        <h6><a href="#">100٪ آبهای ارگانیک</a></h6>
-                                        <div class="rating"><div class="product_rate" style="width:100%"></div></div>
-                                        <span class="price">33.00 تومان</span>
-                                    </div>
-                                </div>
-                            </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -355,12 +278,11 @@
                             </li> -->
                         </ul>
                     </div>
-                    <div class="widget">
+                    <div >
                         <h5 class="widget_title">برچسب ها</h5>
                         <div class="tags">
-                             @foreach($product->tags()->get() as $tag)
-                            <a href="#">{{$tag->name}} </a>
-                            @endforeach
+                        @foreach($product->tags()->get() as $tag)<a href="/tags/{{$tag->id}}/products" rel="tag">{{$tag->name}}</a> ،
+                                @endforeach
                         </div>
                     </div>
                 </div>
@@ -369,35 +291,7 @@
     </div>
 </section>
 
-<!-- <script type="text/javascript">
 
-    $(document).ready(function(){
-        
-        $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-            });
-            $(".addcart").click(function(){
-                var id = $(this).attr('data-id');
-                // alert(id);
-
-                $.ajax({
-                    url: '/add-to-cart',
-                    method: 'POST',
-                    dataType: 'json',
-                    data: {id:id},
-                    success:function(data)
-                    {
-                        alert('محصول با موفقیت به سبد خرید اضافه شد');
-                    }
-                    // error: function (XMLHttpRequest,textStatus, errorthrown){
-                    //     console.log('AJAX error:' + errorthrown);
-                    // }
-            });
-        });
-    });
-</script> -->
  <script type="text/javascript">
 
     $(document).ready(function(){

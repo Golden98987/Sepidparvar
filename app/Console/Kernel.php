@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->call(function () {
+            $controller = new \App\Http\Controllers\BasketController();
+            $controller->scheduleremove();
+        })->everyMinute();
     }
 
     /**
@@ -39,4 +43,9 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+
+    
+
+
 }

@@ -43,10 +43,14 @@ Route::get('/tag/{id}/posts','PostController@ShowTagPosts');
 
 //====================================== سبد خرید =======================================
 Route::get('/cart', 'BasketController@cart')->name('cart')->middleware('UserLoginCheckPhpResponse');
-Route::get('/checkout', 'BasketController@checkout')->name('checkout')->middleware('UserLoginCheck');
 Route::post('add-to-cart','BasketController@AddToCart')->middleware('UserLoginCheck'); 
 Route::post('cart/delete-from-basket','BasketController@RemoveFromBasket')->middleware('UserLoginCheck'); 
 Route::post('cart/edit-basket','BasketController@EditBasket')->middleware('UserLoginCheck'); 
+
+//====================================== فاکتور =======================================
+
+Route::post('/checkout', 'FactorController@checkout')->name('checkout')->middleware('UserLoginCheckPhpResponse');
+Route::POST('/factor/address','FactorController@StorefactorAddress')->middleware('UserLoginCheckPhpResponse'); 
 
 //====================================== like =======================================
 Route::post('category/rate-to-product','ProductController@RateToProduct')->middleware('UserLoginCheck'); 
@@ -55,7 +59,15 @@ Route::post('category/rate-to-product','ProductController@RateToProduct')->middl
 Route::post('product/star_rating','CommentController@StoreScore')->middleware('UserLoginCheck'); 
 Route::post('product/post_comment','CommentController@StoreComment')->middleware('UserLoginCheck'); 
 
+Route::GET('post/post_comment','CommentController@StorePostComment')->middleware('UserLoginCheck'); 
+
 //====================================== جست و جو =======================================
 Route::get('product/search_products','ProductController@SearchProducts')->name('search'); 
+Route::get('/post/search_posts','PostController@SearchPosts')->name('searchpost'); 
 
+
+//====================================== پرداخت =======================================
+Route::post('/payment/buy',"PaymentController@Payment")->middleware('AddressCheck');
+
+Route::get('/verify', "PaymentController@Verify");
 

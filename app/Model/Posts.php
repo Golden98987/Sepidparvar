@@ -11,6 +11,11 @@ class Posts extends Model
         'title','content'
     ];
     
+    public function User()
+    {
+        return $this->hasMany('App\User','id','user_id');
+    }
+
     public function Comments()
     {
         return $this->morphMany('App\Model\Comments','commentable');

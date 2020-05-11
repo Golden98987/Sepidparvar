@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 
 class Comments extends Model
@@ -57,11 +58,17 @@ class Comments extends Model
                 $newcomment=new Comments();
                 $newcomment->user_id=$user_id;
                 $newcomment->commentable_id=$product_id;
+                $newcomment->commentable_type='App\Model\Product';
                 $newcomment->comment=$comment;
                 $newcomment->state=0;
                 $newcomment->save();
             }
         
+    }
+
+    public function getShortContent($num)
+    {
+        return Str::limit($this->comment, $num, '...');
     }
     
 }

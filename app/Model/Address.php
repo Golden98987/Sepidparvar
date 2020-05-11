@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
+    public $table='address';
     public function Users()
     {
         return $this->belongsTo('App\Model\Users');

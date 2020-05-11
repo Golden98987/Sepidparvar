@@ -38,5 +38,23 @@ class CommentController extends Controller
             return response()->json();
         
     }
-   
+    
+    public function StorePostComment(Request $request)
+    {
+ 
+ 
+            $CurrentUserId=$request->user()->id;
+            $post_id=$request->id;
+            $newcomment=new Comments();
+            $newcomment->user_id=$CurrentUserId;
+            $newcomment->commentable_id=$post_id;
+            $newcomment->commentable_type='App\Model\Posts';
+            $newcomment->comment=$request->comment;
+            $newcomment->state=0;
+            $newcomment->save();
+            return response()->json(['comment'=>$request->comment]);
+         
+        
+    }
+
 }

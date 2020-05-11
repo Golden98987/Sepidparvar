@@ -13,6 +13,10 @@ use App\Model\Taggables;
 use App\Query;
 use App\User;
 use App\Model\Roles;
+use App\Model\Posts;
+use App\Model\Comments;
+
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -37,7 +41,10 @@ class SiteController extends Controller
             array_push($MostPopularProduct,Product::with('category')->where('id',$product_id->rateable_id)->first()); 
         }
 
-        return view('home',compact('BestSoldProduct','MostPopularProduct'));
+        $Posts=Posts::orderBy('created_at','DESC')->take(3)->get();
+
+        $Comments=Comments::where('state','2')->take(3)->get();
+        return view('home',compact('BestSoldProduct','MostPopularProduct','Posts','Comments'));
     }
 //=====================================================================================
 
@@ -79,8 +86,14 @@ class SiteController extends Controller
                 $path[$i]=Photoes::Where('imageable_id',$item->id)->first()->path;
                 $i++;
             }
+
+            foreach($products as $item)
+            {
+                $category[$i]=Category::Where('id',$item->category_id)->first()->name;
+                $i++;
+            }
            
-        return response()->json(array('result'=>$products,'path'=>$path));
+        return response()->json(array('result'=>$products,'path'=>$path, 'category'=>$category));
     }
 
 //=====================================================================================

@@ -47,4 +47,12 @@ class Factor extends Model
     {
         return $this->hasMany('App\Model\Factor_Product');
     }
+
+    public function checkaddress($factor_id)
+    {
+        if(Factor::where('id',$factor_id)->where('address_id','!=',null)->get()!=null)
+            return 1;
+        else 
+            return 0;
+    }
 }
