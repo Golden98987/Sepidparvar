@@ -26,6 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('role');
 //============================= محصولات ====================================
 Route::get('/', 'SiteController@ShowHomepage');
 Route::get('/category/{name}/{id}', 'SiteController@ShowCategory');
+Route::get('/store', 'SiteController@ShowStore');
+
 Route::get('/category/{categori}/{name}/{id}', 'SiteController@ShowSubcategory');
 Route::post('sort-by-category', 'SiteController@SortByCategory');
 

@@ -118,11 +118,23 @@ class SiteController extends Controller
 //=====================================================================================
     public function aboutus()
     {
-        return view ("aboutus");   
+        $Comments=Comments::where('state','2')->take(3)->get();
+        return view ("aboutus",compact('Comments'));   
     }
+    //=====================================================================================
     public function contactus()
     {
-        return view ("contactus");   
+        $Comments=Comments::where('state','2')->take(3)->get();
+        return view ("contactus",compact('Comments'));   
+    }
+    //=====================================================================================
+
+    public function ShowStore()
+    {
+        $products=Product::with('category')->simplepaginate(6);
+        $recentproducts=Product::orderBy('created_at','Desc')->take(3)->get();
+
+        return view ('Product.store',compact('products','recentproducts'));
     }
     
 }

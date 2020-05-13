@@ -15,6 +15,7 @@ class FactorController extends Controller
 
     public function checkout(Request $request)
     {
+        // dd($request);
         $factor=new Factor();
         $factor->user_id=$request->user()->id;
         $factor->sum=$request->total;

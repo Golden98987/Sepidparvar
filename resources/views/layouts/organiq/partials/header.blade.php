@@ -92,7 +92,7 @@
                     </ul>
                 </div>
             </li>
-              <li class="dropdown dropdown-mega-menu">
+              <!-- <li class="dropdown dropdown-mega-menu">
                   <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">تخفیف ها و پیشنهادها</a>
                   <div class="dropdown-menu">
                       <ul class="mega-menu d-lg-flex">
@@ -112,7 +112,11 @@
                           </li>
                       </ul>
                   </div>
+              </li> -->
+              <li class="dropdown">
+                <a class="nav-link" href="/store">فروشگاه</a>
               </li>
+
               <li class="dropdown">
                 <a class="nav-link" href="{{Route('weblog')}}">وبلاگ</a>
               </li>

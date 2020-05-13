@@ -3,23 +3,7 @@
 
 
 <!-- START SECTION BANNER -->
-{{-- <section class="bg_light_yellow breadcrumb_section background_bg bg_fixed bg_size_contain" data-img-src="assets/images/breadcrumb_bg.png">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-sm-12 text-center">
-                <div class="page-title">
-                    <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">درباره ما</font></font></h1>
-                </div>
-                <nav aria-label="خرده نان">
-                    <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">خانه</font></font></a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">دربارهی ما</font></font></li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section> --}}
+
 <!-- END SECTION BANNER -->
 
 <!-- START SECTION ABOUT US -->
