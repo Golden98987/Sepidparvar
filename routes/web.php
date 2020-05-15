@@ -52,7 +52,8 @@ Route::post('cart/edit-basket','BasketController@EditBasket')->middleware('UserL
 //====================================== فاکتور =======================================
 
 Route::post('/checkout', 'FactorController@checkout')->name('checkout')->middleware('UserLoginCheckPhpResponse');
-Route::POST('/factor/address','FactorController@StorefactorAddress')->middleware('UserLoginCheckPhpResponse'); 
+Route::post('/factor/address','FactorController@StorefactorAddress')->middleware('UserLoginCheckPhpResponse'); 
+Route::Get('/Address','FactorController@checkout')->middleware('UserLoginCheckPhpResponse'); 
 
 //====================================== like =======================================
 Route::post('category/rate-to-product','ProductController@RateToProduct')->middleware('UserLoginCheck'); 
@@ -60,7 +61,6 @@ Route::post('category/rate-to-product','ProductController@RateToProduct')->middl
 //====================================== نظر و امتیازدهی =======================================
 Route::post('product/star_rating','CommentController@StoreScore')->middleware('UserLoginCheck'); 
 Route::post('product/post_comment','CommentController@StoreComment')->middleware('UserLoginCheck'); 
-
 Route::GET('post/post_comment','CommentController@StorePostComment')->middleware('UserLoginCheck'); 
 
 //====================================== جست و جو =======================================
@@ -69,7 +69,6 @@ Route::get('/post/search_posts','PostController@SearchPosts')->name('searchpost'
 
 
 //====================================== پرداخت =======================================
-Route::post('/payment/buy',"PaymentController@Payment")->middleware('AddressCheck');
-
+Route::post('/payment/buy',"PaymentController@Payment");
 Route::get('/verify', "PaymentController@Verify");
 

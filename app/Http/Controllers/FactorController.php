@@ -15,17 +15,23 @@ class FactorController extends Controller
 
     public function checkout(Request $request)
     {
-        // dd($request);
+        $basket_items=Baskets::where('user_id',$request->user()->id)->get();
+        $total=0;
+        foreach($basket_items as $item)
+        {   
+            $total+=$item->Product()->first()->price * $item->num;
+        }
+
         $factor=new Factor();
         $factor->user_id=$request->user()->id;
-        $factor->sum=$request->total;
+        $factor->sum=$total;
         $factor->created_at=Carbon::now();
         $factor->save();
         $factor_id=$factor->id;
-
+        session(['factor_id' => $factor_id]);
         $basket_items=Baskets::where('user_id',$request->user()->id)->get();
 
-        $total=0;
+        
         $factor_items=array();
         foreach($basket_items as $item)
         {   
@@ -38,13 +44,14 @@ class FactorController extends Controller
         }
 
         $Addresses=Address::where('user_id',$request->user()->id)->get();
-        return view ("basket.checkout",compact('Addresses','factor_id','factor_items'));
+        return view ("basket.Address",compact('Addresses'));
     }
 
     public function StorefactorAddress(Request $request)
     {
         // dd($request);
         $address=new Address();
+        $address->user_id=$request->user()->id;
         $address->state=$request->state;
         $address->city=$request->city;
         $address->postaddress=$request->postaddress;
@@ -53,13 +60,15 @@ class FactorController extends Controller
         $address->mobile=$request->mobile;
         $address->transferee_name=$request->transferee_name;
         $address->save();
-        $address_id=$address->id;
-        $factor=Factor::where('id',$request->factor_id)->first();
-        dd($factor);
-        $factor->address_id=$address_id;
-        // $factor->sum=
-        $factor->save();
         
+        $address_id=$address->id;
+        $factor=Factor::where('id',session('factor_id'))->first();
+        $factor->address_id=$address_id;
+        $factor->save();
+
+        $factor_items=Factor_Product::where('factor_id',session('factor_id'))->get();
+
+        return view ("basket.checkout",compact('factor_items'));
 
        
     }

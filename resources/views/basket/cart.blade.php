@@ -61,11 +61,11 @@
                                         </div> -->
                                     </div>
                                     <div class="col-lg-8 col-md-6 text-left text-md-right">
-                                        <form method="post" action="/checkout">
+                                        <!-- <form method="post" action="/Address"> -->
                                         {{ csrf_field() }}
-                                            <input readonly hidden name="total" value="{{$total}}" >
-                                            <button type="submit"  class="btn btn-default btn-sm checkout">ادامه فرایند خرید</a>
-                                        </form>
+                                            <!-- <input readonly hidden name="total" value="{{$total}}" > -->
+                                            <a href="/Address"   class="btn btn-default btn-sm checkout">ادامه فرایند خرید</a>
+                                        <!-- </form> -->
                                     </div>
                                 </div>
                             </td>

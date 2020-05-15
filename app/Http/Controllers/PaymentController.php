@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Shetabit\Payment\Invoice;
 use Shetabit\Payment\Facade\Payment;
+use App\Model\Factor;
 use SoapClient;
 use Redirect;
 class PaymentController extends Controller
@@ -14,7 +15,7 @@ class PaymentController extends Controller
     {
             dd($request);
             $MerchantID = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'; //Required
-            $Amount = 1000; //Amount will be based on Toman - Required
+            $Amount = Factor::where('id',session('factor_id'))->sum; //Amount will be based on Toman - Required
             $Description = 'خرید از سایت سپیدپروار'; // Required
             $Email = Auth::user()->email; // Optional
             $Mobile = Auth::user()->mobile; // Optional
