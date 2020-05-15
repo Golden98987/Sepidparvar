@@ -51,10 +51,10 @@ Route::post('cart/edit-basket','BasketController@EditBasket')->middleware('UserL
 
 //====================================== فاکتور =======================================
 
-Route::post('/checkout', 'FactorController@checkout')->name('checkout')->middleware('UserLoginCheckPhpResponse');
+Route::get('/checkout', 'FactorController@checkout')->name('checkout')->middleware('UserLoginCheckPhpResponse','factorcheck');
 Route::post('/factor/address','FactorController@StorefactorAddress')->middleware('UserLoginCheckPhpResponse'); 
-Route::Get('/Address','FactorController@checkout')->middleware('UserLoginCheckPhpResponse'); 
-
+Route::Get('/Address','FactorController@ShowAddress')->middleware('UserLoginCheckPhpResponse'); 
+Route::Get('/SelectAddress/{id}','FactorController@SelectAddress')->middleware('UserLoginCheckPhpResponse','factorcheck');
 //====================================== like =======================================
 Route::post('category/rate-to-product','ProductController@RateToProduct')->middleware('UserLoginCheck'); 
 
@@ -67,8 +67,7 @@ Route::GET('post/post_comment','CommentController@StorePostComment')->middleware
 Route::get('product/search_products','ProductController@SearchProducts')->name('search'); 
 Route::get('/post/search_posts','PostController@SearchPosts')->name('searchpost'); 
 
-
 //====================================== پرداخت =======================================
-Route::post('/payment/buy',"PaymentController@Payment");
+Route::post('/payment/buy',"PaymentController@Payment")->middleware('UserLoginCheckPhpResponse','factorcheck');
 Route::get('/verify', "PaymentController@Verify");
 

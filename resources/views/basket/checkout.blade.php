@@ -57,11 +57,14 @@
                         <label class="form-check-label" for="exampleRadios3">انتقال مستقیم بانکی</label>
                         <p data-method="option3" class="payment-text">بسیاری از متن های قسمت های Lorem Ipsum وجود دارد ، اما اکثر آنها به طریقی دچار تغییراتی شده اند ، با طنز تزریق شده یا کلمات تصادفی که حتی چندان باورپذیر به نظر نمی رسند. </p>
                     </div> -->
-                    <form class="custome-radio" action="/payment/buy" method="post" >
-                        <input  checked class="form-check-input" type="radio" name="payment_option" id="exampleRadios4" value="option4">
-                        <label  class="form-check-label" for="exampleRadios4">زرین پال</label>
+                    <form  action="/payment/buy" method="post" >
+                        {{ csrf_field() }}
+                        <div class="custome-radio">
+                            <input  checked class="form-check-input" type="radio" name="payment_option" id="exampleRadios4" value="option4">
+                            <label  class="form-check-label" for="exampleRadios4">زرین پال</label>
+                        </div>
                         <p data-method="option4" class="payment-text"></p>
-                        <button type="submit" id="factorpay" class="btn btn-default"> پرداخت </a>
+                        <button type="submit" id="factorpay" class="btn btn-default"> پرداخت </button>
                     </form>
                     <!-- <div class="custome-radio">
                         <input class="form-check-input" type="radio" name="payment_option" id="exampleRadios5" value="option5">

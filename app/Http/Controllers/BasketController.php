@@ -40,6 +40,7 @@ class BasketController extends Controller
             $path[$i]=Photoes::Where('imageable_id',$item->Product->id)->first()->path;
             $i++;
         }
+        session(['factor_id' =>null]);
         if($result)
         {
             return response()->json(array('basket'=>$basket,'path'=>$path));
@@ -67,6 +68,7 @@ class BasketController extends Controller
             $path[$i]=Photoes::Where('imageable_id',$item->Product->id)->first()->path;
             $i++;
         }
+        session(['factor_id' =>null]);
         return response()->json(array('basket'=>$basket,'path'=>$path));
 
         
@@ -87,6 +89,7 @@ class BasketController extends Controller
             $path[$i]=Photoes::Where('imageable_id',$item->Product->id)->first()->path;
             $i++;
         }
+        session(['factor_id' =>null]);
         if($result)
         {
             return response()->json(array('basket'=>$basket,'path'=>$path));
@@ -97,6 +100,8 @@ class BasketController extends Controller
             $Message="تعداد درخواستی شما بیش از تعداد موجود در انبار است!";
             return response()->json(array('basket'=>$basket,'path'=>$path,'message'=>$Message));
         }
+
+
     }
 
 

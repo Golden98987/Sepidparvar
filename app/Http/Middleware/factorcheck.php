@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Model\Baskets;
 use Closure;
 
 class factorcheck
@@ -15,13 +16,19 @@ class factorcheck
      */
     public function handle($request, Closure $next)
     {
+
+        $basket=Baskets::getcontent($request->user()->id);
         if(session('factor_id')!=null)
         {
             return $next($request);
         }
-        else
+        elseif(session('factor_id')==null && count($basket)>0)
         {
-            return redirect()->route('/Address');
+            return redirect()->route('cart');
+        }
+        elseif(session('factor_id')==null && count($basket)==0)
+        {
+            return redirect()->route('');
         }
         abort(403);
     }

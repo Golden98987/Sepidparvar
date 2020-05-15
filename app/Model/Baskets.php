@@ -54,7 +54,6 @@ class Baskets extends Model
     public static function getcontent($user_id)
     {
         $basket=Baskets::with('Product')->where('user_id',$user_id)->get();
-        
         return $basket;
     }
 

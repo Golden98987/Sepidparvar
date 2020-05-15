@@ -64,7 +64,7 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'UserLoginCheck'=> \App\Http\Middleware\UserLoginCheck::class,
         'UserLoginCheckPhpResponse'=> \App\Http\Middleware\UserLoginCheckPhpResponse::class,
-        'AddressCheck'=> \App\Http\Middleware\AddressCheck::class,
+        'factorcheck'=> \App\Http\Middleware\factorcheck::class,
     ];
 
     /**

@@ -171,7 +171,6 @@ $(".ratetoproduct").on("click",function(){
         dataType: 'json',
         data: {
             id:id,
-            _token: "{{ csrf_token() }}",
             },
         success:function(data)
         {
@@ -179,11 +178,10 @@ $(".ratetoproduct").on("click",function(){
         },
         error: function (XMLHttpRequest,textStatus, errorthrown){
         }
-});
+	});
 });
 
 
-    ///the first page sortin best sold products based on category
 $(document).on("click",".sortbycategory",function(){
     var id = $(this).attr('data-id');
         $.ajax({

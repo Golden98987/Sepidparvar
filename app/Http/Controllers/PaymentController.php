@@ -13,9 +13,9 @@ class PaymentController extends Controller
 {
     public function Payment(Request $request)
     {
-            dd($request);
             $MerchantID = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'; //Required
-            $Amount = Factor::where('id',session('factor_id'))->sum; //Amount will be based on Toman - Required
+            $factor=Factor::where('id',session('factor_id'))->first();
+            $Amount =$factor->sum; //Amount will be based on Toman - Required
             $Description = 'خرید از سایت سپیدپروار'; // Required
             $Email = Auth::user()->email; // Optional
             $Mobile = Auth::user()->mobile; // Optional
